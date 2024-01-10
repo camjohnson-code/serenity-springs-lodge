@@ -1,3 +1,122 @@
+:root {
+  --orange: #E08D21;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background: #161616;
+  overflow: hidden;
+}
+
+.login-page {
+  display: flex;
+}
+
+.login-image,
+.login-form {
+  width: 50%;
+  height: 100vh;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; 
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 130px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-top: 75px;
+  margin-bottom: 50px;
+}
+
+.logo p,
+h1,
+.form p,
+label {
+  color: white;
+}
+
+.logo p {
+  font-weight: bold;
+  font-size: 1em;
+  margin-left: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  height: 550px;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+form p {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.login-instruction {
+  margin-bottom: 45px;
+}
+
+label {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+input,
+.sign-in-button {
+  width: 400px;
+  height: 60px;
+}
+
+input,
+input::placeholder,
+.sign-in-button {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+input {
+  border: none;
+  border-radius: 10px;
+  padding: 0 15px;
+}
+
+input:focus {
+  outline: 2px solid var(--orange);
+}
+
+.sign-in-button {
+  background-color: var(--orange);
+  border: none;
+  font-weight: 700;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.forgot-link {
+  color: var(--orange);
 }
