@@ -1,16 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
-</head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Serenity Springs Lodge</title>
+  </head>
+  <body>
+    <section class="login-page">
+      <div class="login-image">
+        <img
+          class="hero-image"
+          src="./images/login.jpg"
+          alt="Serenity Springs Lodge Courtyard"
+        />
+      </div>
+      <section class="login-form">
+        <div class="logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            x="0px"
+            y="0px"
+            viewBox="0 0 32 32"
+            enable-background="new 0 0 32 32"
+            xml:space="preserve"
+            width="15px"
+            height="15px"
+          >
+            <g>
+              <polygon
+                points="6.651,19.325 12.675,19.325 12.675,32 19.325,32 19.325,19.325 25.349,19.325 25.349,32 32,32 32,19.325 32,12.675 32,0 25.349,0 25.349,12.675 19.325,12.675 19.325,0 12.675,0 12.675,12.675 6.651,12.675 6.651,0 0,0 0,12.675 0,19.325 0,32 6.651,32"
+                style="fill: #ffffff"
+              />
+            </g>
+          </svg>
+          <p class="logo-name">Serenity Springs Lodge</p>
+        </div>
+        <form class="form">
+          <h1>Log In</h1>
+          <p class="login-instruction">Enter your username and password to login to our dashboard.</p>
+          <label for="username">Username</label>
+          <input type="text" placeholder="Enter your username" />
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter your password"/>
+          <label for="sign-in"></label>
+          <button class="sign-in-button">Sign In</button>
+          <p>Forgot Username or Password? <span class="forgot-link">Click Here</span></p>
+        </form>
+      </section>
+    </section>
 
-</body>
+    <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+    <script src="bundle.js"></script>
+  </body>
 </html>
