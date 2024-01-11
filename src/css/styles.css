@@ -290,6 +290,7 @@ li button {
 .content {
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 20px;
@@ -307,14 +308,32 @@ li button {
   padding: 15px;
   text-align: center;
   background-color: var(--light-gray);
+  margin: 0 15px;
 }
 
-.upcoming-visits .module {
+.module:first-of-type {
+  margin-left: 0;
+}
+
+.upcoming-visits-container,
+.past-visits-container {
+  display: flex;
+}
+
+.single {
   background: url('../images/single.jpg') center/cover;
 }
 
-.past-visits .module {
+.residential {
   background: url('../images/residential-suite.jpg') center/cover;
+}
+
+.junior {
+  background: url('../images/junior-suite.jpg') center/cover;
+}
+
+.suite {
+  background: url('../images/suite.jpg') center/cover;
 }
 
 .module-button {
@@ -334,7 +353,7 @@ li button {
  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-.spend-link {
+.link {
   text-decoration: underline;
   font-weight: 700;
   cursor: pointer;
