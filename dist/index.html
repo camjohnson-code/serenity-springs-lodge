@@ -61,7 +61,7 @@
         </form>
       </section>
     </section>
-    <section class="customer-dashboard hidden">
+    <section class="customer-dashboard">
       <nav class="customer-nav">
         <h2 class="customer-greeting">Welcome, Name!</h2>
         <button class="nav-button active">
@@ -132,7 +132,8 @@
           <h3>Spending</h3>
           <div class="module">
             <p class="spend-amount">You have spend $1,800 over 12 nights.</p>
-            <p class="spend-link">See a full breakdown here.</p>
+            <br>
+            <p>See a full breakdown <span class="spend-link">here</span>.</p>
           </div>
         </section>
         <section class="past-visits dashboard-section">
@@ -163,7 +164,7 @@
         <section class="spending dashboard-info hidden"></section>
       </section>
     </section>
-    <section class="book-rooms ">
+    <section class="book-rooms hidden">
       <div class="header">
         <div class="left-header-links">
           <h4>Serenity Springs Lodge</h4>
@@ -185,19 +186,21 @@
         <div>
           <label for="check-in">Check-in Date</label>
           <input
-            type="date"
+            placeholder="Select check-in date"
+            type="text"
+            onfocus="(this.type = 'date')"
             name="check-in"
             id="check-in"
-            placeholder="Select Check-in date"
           />
         </div>
         <div>
           <label for="check-out">Check-out Date</label>
           <input
-            type="date"
+            type="text"
             name="check-out"
+            onfocus="(this.type = 'date')"
             id="check-out"
-            placeholder="Select Check-out date"
+            placeholder="Select check-out date"
           />
         </div>
         <div>
@@ -238,7 +241,7 @@
         </div>
       </section>
     </section>
-    <footer class="">
+    <footer class="hidden">
       <section class="left-footer">
         <div>
           <p>Serenity Springs Lodge</p>
