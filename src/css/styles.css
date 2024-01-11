@@ -189,10 +189,16 @@ li {
   border: none;
   background: none;
   text-align: left;
-  transition: all 0.3s ease;
+  transition: all .3s ease;
 }
 
-.nav-button.active {
+.dropdown-button {
+  height: 35px;
+  padding-left: 25px;
+}
+
+.nav-button.active,
+.dropdown-button.active {
   background-color: var(--dark-gray);
 }
 
