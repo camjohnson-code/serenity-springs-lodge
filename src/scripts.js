@@ -30,10 +30,15 @@ nav.addEventListener('click', function (event) {
     event.target.closest('button').classList.contains('nav-button')
   ) {
     navButtons.forEach((li) => li.classList.remove('active'));
-    event.target.classList.toggle('active');
+
+    if (
+      event.target !== navButtons[1] &&
+      event.target.closest('button') !== navButtons[1]
+    ) {
+      event.target.classList.toggle('active');
+    }
   }
 
-  // dropdown opening/closing only
   if (
     (event.target === navButtons[1] ||
       event.target.closest('button') === navButtons[1]) &&
@@ -45,7 +50,6 @@ nav.addEventListener('click', function (event) {
     dropdownOptions.classList.add('active');
     toggleArrow.classList.add('rotate');
   } else {
-    console.log(event.target);
     dropdownOptions.classList.remove('active');
     toggleArrow.classList.remove('rotate');
   }
