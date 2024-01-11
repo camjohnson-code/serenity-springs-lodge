@@ -198,14 +198,13 @@ li {
 
 .dropdown-options {
   border-left: 1px solid white;
-  margin-bottom: 20px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease;
 }
 
 .dropdown-options.active {
-  max-height: 200px; /* Adjust the maximum height as needed */
+  max-height: 200px;
 }
 
 .toggle-arrow {
@@ -230,6 +229,7 @@ li button {
   height: 20%;
   position: fixed;
   bottom: 0;
+  justify-content: center;
 }
 
 .nav-footer a {
@@ -252,7 +252,7 @@ li button {
 }
 
 .nav-footer-links:last-of-type {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .portfolio-links {
@@ -324,6 +324,16 @@ li button {
   margin-top: auto;
 }
 
+.date {
+ text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.spend-link {
+  text-decoration: underline;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .dashboard-section,
 .dashboard-section h3 {
   margin-bottom: 20px;
@@ -388,7 +398,7 @@ li button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 250px;
+  height: 350px;
   width: 90%;
   margin: 0 auto;
   border-radius: 20px;
@@ -433,23 +443,20 @@ li button {
   width: 100%;
   margin: 0;
   background: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 
 .room-finder::placeholder {
   font-size: 14px;
   font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .room-finder div {
   display: flex;
   flex-direction: column;
   height: 80%;
-  width: 25%;
-}
-
-input[type='date']::-webkit-calendar-picker-indicator {
-  display: none;
+  width: 30%;
 }
 
 .room-finder button {
@@ -478,6 +485,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .room-container {
   display: flex;
+  height: 400px;
 }
 
 .room-module {
@@ -502,6 +510,15 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .image-container {
   width: 33%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-container > .room-module {
+  height: 45%;
+  width: 100%;
+  margin-left: 0;
 }
 
 .image-container div:nth-of-type(1) {
@@ -514,14 +531,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
   background-position: center calc(100% + 240px);
 }
 
-.image-container div:nth-of-type(1),
-.image-container div:nth-of-type(2) {
-  height: 50%;
-  width: 100%;
-  height: 150px;
-  margin-left: 0;
-}
-
 .room-module button,
 .amenity button {
   border: none;
@@ -530,7 +539,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .amenities {
-  margin: 0 auto;
   overflow: hidden;
 }
 
@@ -575,7 +583,10 @@ input[type='date']::-webkit-calendar-picker-indicator {
   width: max-content;
   display: flex;
   flex-wrap: nowrap;
-  animation: scroll 25s linear infinite;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: scroll 25s linear infinite;
+  }
 }
 
 .amenities-scroller .amenity:nth-of-type(1),
