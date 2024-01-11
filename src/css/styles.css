@@ -122,8 +122,10 @@ input:focus {
   color: var(--orange);
 }
 
-.customer-dashboard {
+.customer-dashboard,
+.nights-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 nav {
@@ -285,6 +287,7 @@ li button {
 .dashboard-info h3 {
   font-weight: 700;
   font-size: 24px;
+  margin-bottom: 15px
 }
 
 .content {
@@ -308,11 +311,7 @@ li button {
   padding: 15px;
   text-align: center;
   background-color: var(--light-gray);
-  margin: 0 15px;
-}
-
-.module:first-of-type {
-  margin-left: 0;
+  margin: 10px 30px 10px 0;
 }
 
 .upcoming-visits-container,
@@ -350,7 +349,7 @@ li button {
 }
 
 .date {
- text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+ text-shadow: 0 0 8px rgba(0, 0, 0, 1.0);
 }
 
 .link {
@@ -687,7 +686,8 @@ footer {
   font-weight: 300;
 }
 
-.right-footer a:first-of-type {
+.right-footer a:first-of-type,
+.bold {
   font-weight: 700;
 }
 

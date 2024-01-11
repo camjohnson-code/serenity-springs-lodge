@@ -23,6 +23,8 @@ const navButtons = document.querySelectorAll('.nav-button');
 const dropdownButtons = document.querySelectorAll('.dropdown-button');
 const dropdownOptions = document.querySelector('.dropdown-options');
 const toggleArrow = document.querySelector('.toggle-arrow');
+const customerDashboard = document.querySelector('.customer-dashboard');
+const dashboardSections = document.querySelectorAll('.dashboard-info');
 let currentUser;
 let allRooms;
 let allBookings;
@@ -34,8 +36,17 @@ window.addEventListener('load', function () {
 });
 
 nav.addEventListener('click', function (event) {
-  toggleDropdownMenu(event);
-  changeActiveButton(event);
+  if (event.target.closest('.nav-button')) {
+    toggleDropdownMenu(event);
+    changeActiveButton(event);
+    changeDashboardView(event);
+  }
+});
+
+customerDashboard.addEventListener('click', function (event) {
+  if (event.target.closest('.dashboard-section')) {
+    changeDashboardView(event);
+  }
 });
 
 // API Calls
@@ -102,6 +113,7 @@ const updateSpending = () => {
   });
 
   populateSpendingAmount(formattedAmount);
+  return formattedAmount;
 };
 
 const updatePastVisits = () => {
@@ -114,6 +126,61 @@ const updatePastVisits = () => {
     });
 
   populateRecentVisits(pastBookings);
+};
+
+const changeDashboardView = (event) => {
+  const closestModule = event.target.closest('.module');
+
+  if (event.target.innerText === 'Home') {
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[0]);
+    });
+  }
+
+  if (
+    event.target.innerText === 'Spending' ||
+    (closestModule &&
+      closestModule.previousElementSibling.innerText === 'Spending' &&
+      event.target.tagName.toLowerCase() === 'span')
+  ) {
+    populateSpendingDashboard(userBookings);
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[1]);
+      navButtons.forEach((button) => button.classList.remove('active'));
+      navButtons[5].classList.add('active');
+    });
+  }
+
+  if (event.target.innerText === 'Overview') {
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[2]);
+    });
+  }
+
+  if (event.target.innerText === 'Upcoming') {
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[3]);
+    });
+  }
+
+  if (event.target.innerText === 'Past') {
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[4]);
+    });
+  }
+};
+
+const hide = (element) => {
+  element.classList.add('hidden');
+};
+
+const show = (element) => {
+  element.classList.remove('hidden');
 };
 
 // DOM Manipulation Functions
@@ -137,7 +204,8 @@ const toggleDropdownMenu = (event) => {
 const changeActiveButton = (event) => {
   if (
     event.target.classList.contains('nav-button') ||
-    event.target.closest('button').classList.contains('nav-button')
+    (event.target.closest('button') &&
+      event.target.closest('button').classList.contains('nav-button'))
   ) {
     navButtons.forEach((li) => li.classList.remove('active'));
 
@@ -227,4 +295,48 @@ const populateRecentVisits = (bookings) => {
       </div>`;
     }
   }
+};
+
+const populateSpendingDashboard = (bookings) => {
+  updateSpendingTotal(bookings);
+  updateSpendingBreakdown(bookings);
+};
+
+const updateSpendingTotal = (bookings) => {
+  const spendingText = document.querySelector('.spending-total');
+
+  spendingText.innerText = `Total: ${updateSpending(bookings)}`;
+};
+
+const updateSpendingBreakdown = (bookings) => {
+  const container = document.querySelector('.nights-container');
+  const sortedBookings = bookings.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    return dateA - dateB;
+  });
+
+  sortedBookings.forEach((booking, index) => {
+    const div = document.createElement('div');
+
+    const date = booking.date;
+    const dateObject = new Date(date);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = dateObject.toLocaleDateString('en-US', options);
+
+    const amount = allRooms[booking.roomNumber - 1].costPerNight;
+    const formattedAmount = amount.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+
+    div.classList.add('module');
+    div.innerHTML = `<p>Night #${index + 1}: ${formattedDate}</p>
+    <p class="bold">$${amount}</p>`;
+
+    console.log(div.innerHTML);
+
+    container.appendChild(div);
+  });
 };
