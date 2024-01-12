@@ -122,8 +122,10 @@ input:focus {
   color: var(--orange);
 }
 
-.customer-dashboard {
+.customer-dashboard,
+.nights-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 nav {
@@ -165,10 +167,6 @@ nav button img {
   width: 20px;
   height: auto;
   margin: 0 15px;
-}
-
-.toggle-arrow {
-  margin-left: 60px;
 }
 
 nav button:hover,
@@ -285,11 +283,13 @@ li button {
 .dashboard-info h3 {
   font-weight: 700;
   font-size: 24px;
+  margin-bottom: 15px
 }
 
 .content {
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 20px;
@@ -307,14 +307,28 @@ li button {
   padding: 15px;
   text-align: center;
   background-color: var(--light-gray);
+  margin: 10px 30px 10px 0;
 }
 
-.upcoming-visits .module {
+.upcoming-visits-container,
+.past-visits-container {
+  display: flex;
+}
+
+.single {
   background: url('../images/single.jpg') center/cover;
 }
 
-.past-visits .module {
+.residential {
   background: url('../images/residential-suite.jpg') center/cover;
+}
+
+.junior {
+  background: url('../images/junior-suite.jpg') center/cover;
+}
+
+.suite {
+  background: url('../images/suite.jpg') center/cover;
 }
 
 .module-button {
@@ -331,10 +345,10 @@ li button {
 }
 
 .date {
- text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+ text-shadow: 0 0 8px rgba(0, 0, 0, 1.0);
 }
 
-.spend-link {
+.link {
   text-decoration: underline;
   font-weight: 700;
   cursor: pointer;
@@ -668,7 +682,8 @@ footer {
   font-weight: 300;
 }
 
-.right-footer a:first-of-type {
+.right-footer a:first-of-type,
+.bold {
   font-weight: 700;
 }
 
