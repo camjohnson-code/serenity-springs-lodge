@@ -25,6 +25,11 @@ const dropdownOptions = document.querySelector('.dropdown-options');
 const toggleArrow = document.querySelector('.toggle-arrow');
 const customerDashboard = document.querySelector('.customer-dashboard');
 const dashboardSections = document.querySelectorAll('.dashboard-info');
+const bookingsOverviewSection = document.querySelector('.bookings-overview');
+const bookingsUpcomingSection = document.querySelector('.bookings-upcoming');
+const bookRoomDashboard = document.querySelector('.book-rooms');
+const dashboardButton = document.querySelector('.header-button');
+const footer = document.querySelector('footer');
 const today = new Date();
 let currentUser;
 let allRooms;
@@ -50,6 +55,18 @@ customerDashboard.addEventListener('click', function (event) {
   }
 });
 
+bookRoomDashboard.addEventListener('click', function (event) {
+  changeDashboardView(event);
+});
+
+bookingsOverviewSection.addEventListener('click', function (event) {
+  changeDashboardView(event);
+});
+
+bookingsUpcomingSection.addEventListener('click', function (event) {
+  changeDashboardView(event);
+});
+
 // API Calls
 const getUser = (url) => {
   return fetch(url)
@@ -65,6 +82,7 @@ const getUser = (url) => {
       updateUpcomingVisits();
       populateSpendingAmount();
       updatePastVisits();
+      console.log('ALL ROOMS:', allRooms);
     });
 };
 
@@ -114,8 +132,6 @@ const updatePastVisits = () => {
 };
 
 const changeDashboardView = (event) => {
-  const closestModule = event.target.closest('.module');
-
   if (event.target.innerText === 'Home') {
     dashboardSections.forEach((section) => {
       hide(section);
@@ -125,14 +141,14 @@ const changeDashboardView = (event) => {
 
   if (
     event.target.innerText === 'Spending' ||
-    (closestModule &&
-      closestModule.previousElementSibling.innerText === 'Spending' &&
-      event.target.tagName.toLowerCase() === 'span')
+    event.target.classList.contains('spending-link')
   ) {
     populateSpendingDashboard(userBookings);
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[1]);
+      navButtons.forEach((button) => button.classList.remove('active'));
+      navButtons[8].classList.add('active');
     });
   }
 
@@ -158,6 +174,21 @@ const changeDashboardView = (event) => {
       hide(section);
       show(dashboardSections[4]);
     });
+  }
+
+  if (
+    event.target.innerText === 'Book A Room' ||
+    event.target.classList.contains('booking-link')
+  ) {
+    hide(customerDashboard);
+    show(bookRoomDashboard);
+    show(footer);
+  }
+
+  if (event.target === dashboardButton) {
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
   }
 };
 
@@ -246,11 +277,15 @@ const changeActiveButton = (event) => {
   if (
     (event.target.classList.contains('nav-button') ||
       (targetButton && targetButton.classList.contains('nav-button'))) &&
-    (!targetButton || targetButton.innerText !== 'Bookings')
+    (!targetButton || targetButton.innerText !== 'Bookings') &&
+    targetButton.innerText !== 'Book A Room'
   ) {
     navButtons.forEach((button) => button.classList.remove('active'));
 
-    if (targetButton !== navButtons[1]) {
+    if (
+      targetButton !== navButtons[1] &&
+      targetButton.innerText !== 'Book A Room'
+    ) {
       targetButton.classList.add('active');
     }
   }
@@ -282,7 +317,7 @@ const populateNextVisit = (bookings) => {
     container.innerHTML = `<div class="module">
         <div class="content">
           <p>No upcoming visits!</p>
-          <p> Schedule one <span class="link">here</span>.</p>
+          <p> Schedule one <span class="link booking-link">here</span>.</p>
         </div>
       </div>`;
   }
@@ -390,7 +425,7 @@ const populateBookingsOverview = () => {
     div.classList.add('module');
     div.innerHTML = `<div class="content">
           <p>You have no upcoming visits!</p>
-          <p> Schedule one <span class="link">here</span>.</p>
+          <p> Schedule one <span class="link booking-link">here</span>.</p>
         </div>`;
 
     upcomingVisitsDiv.innerHTML = '';
@@ -422,7 +457,7 @@ const populateBookingsOverview = () => {
     div.classList.add('module');
     div.innerHTML = `<div class="content">
           <p>You haven't stayed with us yet!</p>
-          <p> Schedule one <span class="link">here</span>.</p>
+          <p> Schedule one <span class="link booking-link">here</span>.</p>
         </div>`;
 
     pastVisitsDiv.innerHTML = '';
@@ -460,7 +495,7 @@ const populateUpcomingBookings = () => {
     div.classList.add('module');
     div.innerHTML = `<div class="content">
           <p>You have no upcoming visits!</p>
-          <p> Schedule one <span class="link">here</span>.</p>
+          <p> Schedule one <span class="link booking-link">here</span>.</p>
         </div>`;
 
     upcomingBookingsDiv.innerHTML = '';
