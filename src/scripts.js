@@ -393,6 +393,7 @@ const populateBookingsOverview = () => {
           <p> Schedule one <span class="link">here</span>.</p>
         </div>`;
 
+    upcomingVisitsDiv.innerHTML = '';
     upcomingVisitsDiv.appendChild(div);
   }
 
@@ -424,6 +425,7 @@ const populateBookingsOverview = () => {
           <p> Schedule one <span class="link">here</span>.</p>
         </div>`;
 
+    pastVisitsDiv.innerHTML = '';
     pastVisitsDiv.appendChild(div);
   }
 };
@@ -461,6 +463,7 @@ const populateUpcomingBookings = () => {
           <p> Schedule one <span class="link">here</span>.</p>
         </div>`;
 
+    upcomingBookingsDiv.innerHTML = '';
     upcomingBookingsDiv.appendChild(div);
   }
 };
@@ -498,6 +501,7 @@ const populatePastBookings = () => {
           <p> Schedule one <span class="link">here</span>.</p>
         </div>`;
 
+    pastBookingsDiv.innerHTML = '';
     pastBookingsDiv.appendChild(div);
   }
 };
