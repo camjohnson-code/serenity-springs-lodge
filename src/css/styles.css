@@ -169,10 +169,6 @@ nav button img {
   margin: 0 15px;
 }
 
-.toggle-arrow {
-  margin-left: 60px;
-}
-
 nav button:hover,
 li {
   background-color: var(--dark-gray);
