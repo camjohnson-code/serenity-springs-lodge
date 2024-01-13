@@ -38,6 +38,10 @@ const searchForm = document.querySelector('.room-finder');
 const popularRoomsSection = document.querySelector('.popular-rooms');
 const amenitiesSection = document.querySelector('.amenities');
 const availableRoomsSection = document.querySelector('.available-rooms');
+const availableRoomsHeader = document.querySelector('.available-rooms-header');
+const availableRoomsDisplay = document.querySelector(
+  '.available-rooms-context'
+);
 const availableRoomsContainer = document.querySelector(
   '.available-rooms-container'
 );
@@ -47,6 +51,7 @@ let currentUser;
 let allRooms;
 let allBookings;
 let userBookings;
+let goBackLink;
 
 // Event Listeners
 window.addEventListener('load', function () {
@@ -68,7 +73,6 @@ customerDashboard.addEventListener('click', function (event) {
 });
 
 bookRoomDashboard.addEventListener('click', function (event) {
-  showAvailableRooms(event);
   changeDashboardView(event);
 });
 
@@ -194,13 +198,76 @@ const changeDashboardView = (event) => {
   ) {
     hide(customerDashboard);
     show(bookRoomDashboard);
+    hide(availableRoomsSection);
     show(footer);
+    show(welcomeBanner);
+    show(searchForm);
+    show(popularRoomsSection);
+    show(amenitiesSection);
+    footer.classList.remove('footer-no-rooms');
+    checkInDateInput.value = '';
+    checkInDateInput.type = 'text';
+    numGuestsInput.value = '';
   }
 
-  if (event.target === dashboardButton) {
+  if (
+    event.target === dashboardButton ||
+    event.target.classList.contains('return-to-dashboard')
+  ) {
     hide(footer);
     hide(bookRoomDashboard);
     show(customerDashboard);
+    navButtons.forEach((button) => button.classList.remove('active'));
+    navButtons[0].classList.add('active');
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[0]);
+    });
+  }
+
+  if (
+    checkInDateInput.value &&
+    numGuestsInput.value &&
+    (event.target === roomSearchButton || event.target === submitArrow)
+  ) {
+    event.preventDefault();
+    hide(welcomeBanner);
+    hide(searchForm);
+    hide(popularRoomsSection);
+    hide(amenitiesSection);
+    show(availableRoomsSection);
+    populateAvailableRoomsContainer();
+  }
+
+  if (
+    event.target.innerText === 'Go Back' ||
+    event.target.innerText === 'again'
+  ) {
+    checkInDateInput.value = '';
+    checkInDateInput.type = 'text';
+    numGuestsInput.value = '';
+    show(welcomeBanner);
+    show(searchForm);
+    show(popularRoomsSection);
+    show(amenitiesSection);
+    hide(availableRoomsSection);
+    footer.classList.remove('footer-no-rooms');
+  }
+
+  if (
+    event.target.classList.contains('book-now-button') ||
+    event.target.innerText === 'Book Now'
+  ) {
+    footer.classList.add('footer-no-rooms');
+    availableRoomsContainer.classList.add('no-rooms');
+    showBookedRoom(event);
+  }
+
+  if (
+    event.target.classList.contains('confirm-booking') ||
+    event.target.innerText === 'Confirm'
+  ) {
+    showConfirmedBooking(event);
   }
 };
 
@@ -255,22 +322,6 @@ const makeRoomTypeButton = (booking) => {
     .split(' ')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
-};
-
-const showAvailableRooms = (event) => {
-  if (
-    checkInDateInput.value &&
-    numGuestsInput.value &&
-    (event.target === roomSearchButton || event.target === submitArrow)
-  ) {
-    event.preventDefault();
-    hide(welcomeBanner);
-    hide(searchForm);
-    hide(popularRoomsSection);
-    hide(amenitiesSection);
-    show(availableRoomsSection);
-    populateAvailableRoomsContainer();
-  }
 };
 
 const getBookedRooms = () => {
@@ -600,12 +651,30 @@ const populateAvailableRoomsContainer = () => {
     (a, b) => a.costPerNight - b.costPerNight
   );
 
+  const roomDate = checkInDateInput.value;
+  const formattedDate = formatDate(roomDate);
+  availableRoomsDisplay.innerText = `Available Rooms on ${formattedDate}`;
+
+  if (!goBackLink) {
+    goBackLink = document.createElement('p');
+    goBackLink.innerText = `Go Back`;
+
+    availableRoomsHeader.appendChild(goBackLink);
+  }
+
   if (!availableRooms.length) {
+    footer.classList.add('footer-no-rooms');
+    availableRoomsContainer.classList.add('no-rooms');
+
     availableRoomsContainer.innerHTML = `
     <p>I fiercely apologize, but there aren't any rooms available that match your criteria.</p>
     <br>
     <p>Please try <span class="link">again</span>.</p>`;
   } else {
+    footer.classList.remove('footer-no-rooms');
+    availableRoomsContainer.classList.remove('no-rooms');
+    availableRoomsContainer.innerHTML = '';
+
     availableRooms.forEach((room) => {
       const individualRoom = document.createElement('div');
       const roomImage = document.createElement('div');
@@ -625,7 +694,7 @@ const populateAvailableRoomsContainer = () => {
       <p><span class="bold">Cost Per Night:</span> ${convertNumToDollarAmount(
         room.costPerNight
       )}</p>
-      <button class="orange-button"><span class="bold">Book Now</span></button>
+      <button class="orange-button book-now-button"><span class="bold">Book Now</span></button>
       `;
 
       individualRoom.appendChild(roomImage);
@@ -633,4 +702,26 @@ const populateAvailableRoomsContainer = () => {
       availableRoomsContainer.appendChild(individualRoom);
     });
   }
+};
+
+const showBookedRoom = (event) => {
+  const selectedRoom = event.target.closest('.individual-room');
+  const roomDate = checkInDateInput.value;
+  const formattedDate = formatDate(roomDate);
+
+  availableRoomsDisplay.innerText = `Confirm Booking for ${formattedDate}`;
+  availableRoomsContainer.innerText = 'Please confirm your booking.';
+  availableRoomsContainer.appendChild(selectedRoom);
+
+  const confirmButton = document.querySelector('.book-now-button');
+  confirmButton.innerText = 'Confirm';
+  confirmButton.classList.add('confirm-booking', 'bold');
+};
+
+const showConfirmedBooking = (event) => {
+  availableRoomsContainer.innerHTML = `
+    <p>Your room has been booked!</p>
+    <br>
+    <p>Click <span class="link return-to-dashboard">here</span> to return to the dashboard and view your reservations.</p>
+    `;
 };
