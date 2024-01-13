@@ -140,12 +140,16 @@ const getUserBookings = () => {
   userBookings = allBookings.filter(
     (booking) => booking.userID === currentUser.id
   );
+
+  console.log('USER BOOKINGS:', userBookings);
 };
 
 const updateUpcomingVisits = () => {
-  const futureBookings = getFutureBookings(userBookings);
+  const upcomingBookings = getUpcomingBookings(userBookings);
+  const sortedBookings = sortBookingsNewToOld(upcomingBookings);
+  console.log('SORTED BOOKINGS', sortedBookings);
 
-  populateNextVisit(futureBookings);
+  populateNextVisit(sortedBookings);
 };
 
 const updateSpending = () => {
@@ -160,7 +164,9 @@ const updateSpending = () => {
 
 const updatePastVisits = () => {
   const pastBookings = getPastBookings(userBookings);
-
+  const sortedPastBookings = sortBookingsNewToOld(pastBookings);
+  console.log('PAST BOOKINGS', pastBookings);
+  console.log('SORTED BOOKINGS', sortedPastBookings);
   populateRecentVisits(pastBookings);
 };
 
@@ -240,6 +246,7 @@ const changeDashboardView = (event) => {
       hide(section);
       show(dashboardSections[0]);
     });
+    getUser('http://localhost:3001/api/v1/customers/40');
   }
 
   if (
@@ -287,6 +294,7 @@ const changeDashboardView = (event) => {
     assignBookedRoom();
     showConfirmedBooking(event);
     bookRoom('http://localhost:3001/api/v1/bookings');
+    getUser('http://localhost:3001/api/v1/customers/40');
   }
 };
 
@@ -295,7 +303,7 @@ const sortBookingsNewToOld = (bookings) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
 
-    return dateB - dateA;
+    return dateA - dateB;
   });
 };
 
@@ -308,7 +316,7 @@ const sortBookingsOldToNew = (bookings) => {
   });
 };
 
-const getFutureBookings = (bookings) => {
+const getUpcomingBookings = (bookings) => {
   return bookings.filter((booking) => {
     const bookingDate = new Date(booking.date);
     return bookingDate >= today;
@@ -448,7 +456,7 @@ const populateNextVisit = (bookings) => {
     const formattedDate = formatDate(date);
     const roomType = makeRoomTypeButton(bookings[0]);
 
-    container.innerHTML += `<div class="module ${
+    container.innerHTML = `<div class="module ${
       allRooms[bookings[0].roomNumber - 1].roomType.split(' ')[0]
     }">
         <div class="content">
@@ -476,6 +484,7 @@ const populateSpendingAmount = () => {
 const populateRecentVisits = (bookings) => {
   const container = document.querySelector('.past-visits-container');
   const sortedBookings = sortBookingsNewToOld(bookings);
+  container.innerHTML = '';
 
   for (let i = 0; i < 4; i++) {
     if (sortedBookings[i]) {
@@ -532,19 +541,20 @@ const getBookingsInfo = (bookings) => {
     const bookingDate = new Date(booking.date);
     return bookingDate < today;
   });
-  const futureBookings = getFutureBookings(bookings);
+  const upcomingBookings = getUpcomingBookings(bookings);
 
-  return { pastBookings, futureBookings };
+  return { pastBookings, upcomingBookings };
 };
 
 const populateBookingsOverview = () => {
   const upcomingVisitsDiv = document.querySelector('.overview-upcoming');
   const pastVisitsDiv = document.querySelector('.overview-past');
 
-  const { pastBookings, futureBookings } = getBookingsInfo(userBookings);
+  const { pastBookings, upcomingBookings } = getBookingsInfo(userBookings);
 
-  if (futureBookings.length) {
-    futureBookings.forEach((booking) => {
+  if (upcomingBookings.length) {
+    upcomingVisitsDiv.innerHTML = '';
+    upcomingBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
       const roomType = makeRoomTypeButton(booking);
@@ -576,6 +586,7 @@ const populateBookingsOverview = () => {
   }
 
   if (pastBookings.length) {
+    pastVisitsDiv.innerHTML = '';
     pastBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
@@ -609,12 +620,13 @@ const populateBookingsOverview = () => {
 };
 
 const populateUpcomingBookings = () => {
-  const { futureBookings } = getBookingsInfo(userBookings);
+  const { upcomingBookings } = getBookingsInfo(userBookings);
 
   const upcomingBookingsDiv = document.querySelector('.upcoming-bookings');
 
-  if (futureBookings.length) {
-    futureBookings.forEach((booking) => {
+  if (upcomingBookings.length) {
+    upcomingBookingsDiv.innerHTML = '';
+    upcomingBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
       const roomType = makeRoomTypeButton(booking);
@@ -652,6 +664,7 @@ const populatePastBookings = () => {
   const pastBookingsDiv = document.querySelector('.past-bookings');
 
   if (pastBookings.length) {
+    pastBookingsDiv.innerHTML = '';
     pastBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
