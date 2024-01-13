@@ -140,14 +140,11 @@ const getUserBookings = () => {
   userBookings = allBookings.filter(
     (booking) => booking.userID === currentUser.id
   );
-
-  console.log('USER BOOKINGS:', userBookings);
 };
 
 const updateUpcomingVisits = () => {
   const upcomingBookings = getUpcomingBookings(userBookings);
-  const sortedBookings = sortBookingsNewToOld(upcomingBookings);
-  console.log('SORTED BOOKINGS', sortedBookings);
+  const sortedBookings = sortBookingsOldToNew([...upcomingBookings]);
 
   populateNextVisit(sortedBookings);
 };
@@ -164,9 +161,9 @@ const updateSpending = () => {
 
 const updatePastVisits = () => {
   const pastBookings = getPastBookings(userBookings);
-  const sortedPastBookings = sortBookingsNewToOld(pastBookings);
-  console.log('PAST BOOKINGS', pastBookings);
-  console.log('SORTED BOOKINGS', sortedPastBookings);
+  const sortedNewPastBookings = sortBookingsNewToOld([...pastBookings]);
+  const sortedOldPastBookings = sortBookingsOldToNew([...pastBookings]);
+
   populateRecentVisits(pastBookings);
 };
 
@@ -298,7 +295,7 @@ const changeDashboardView = (event) => {
   }
 };
 
-const sortBookingsNewToOld = (bookings) => {
+const sortBookingsOldToNew = (bookings) => {
   return bookings.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
@@ -307,7 +304,7 @@ const sortBookingsNewToOld = (bookings) => {
   });
 };
 
-const sortBookingsOldToNew = (bookings) => {
+const sortBookingsNewToOld = (bookings) => {
   return bookings.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
@@ -483,7 +480,7 @@ const populateSpendingAmount = () => {
 
 const populateRecentVisits = (bookings) => {
   const container = document.querySelector('.past-visits-container');
-  const sortedBookings = sortBookingsNewToOld(bookings);
+  const sortedBookings = sortBookingsNewToOld([...bookings]);
   container.innerHTML = '';
 
   for (let i = 0; i < 4; i++) {
@@ -517,11 +514,11 @@ const updateSpendingTotal = (bookings) => {
 
 const updateSpendingBreakdown = (bookings) => {
   const container = document.querySelector('.nights-container');
-  const sortedBookings = sortBookingsOldToNew(bookings);
+  const sortedBookings = sortBookingsNewToOld([...bookings]);
 
   container.innerHTML = '';
-  
-  sortedBookings.forEach((booking, index) => {
+
+  sortedBookings.forEach((booking, index, array) => {
     const div = document.createElement('div');
 
     const date = booking.date;
@@ -531,7 +528,7 @@ const updateSpendingBreakdown = (bookings) => {
     const formattedAmount = convertNumToDollarAmount(amount);
 
     div.classList.add('module');
-    div.innerHTML = `<p>Night #${index + 1}: ${formattedDate}</p>
+    div.innerHTML = `<p>Night #${array.length - index}: ${formattedDate}</p>
     <p class="bold">$${amount}</p>`;
 
     container.appendChild(div);
@@ -539,24 +536,25 @@ const updateSpendingBreakdown = (bookings) => {
 };
 
 const getBookingsInfo = (bookings) => {
-  const pastBookings = userBookings.filter((booking) => {
-    const bookingDate = new Date(booking.date);
-    return bookingDate < today;
-  });
+  const pastBookings = getPastBookings(bookings);
   const upcomingBookings = getUpcomingBookings(bookings);
 
-  return { pastBookings, upcomingBookings };
+  const sortedPastBookings = sortBookingsNewToOld([...pastBookings]);
+  const sortedUpcomingBookings = sortBookingsOldToNew([...upcomingBookings]);
+
+  return { sortedPastBookings, sortedUpcomingBookings };
 };
 
 const populateBookingsOverview = () => {
   const upcomingVisitsDiv = document.querySelector('.overview-upcoming');
   const pastVisitsDiv = document.querySelector('.overview-past');
 
-  const { pastBookings, upcomingBookings } = getBookingsInfo(userBookings);
+  const { sortedPastBookings, sortedUpcomingBookings } = getBookingsInfo(userBookings);
 
-  if (upcomingBookings.length) {
+  if (sortedUpcomingBookings.length) {
     upcomingVisitsDiv.innerHTML = '';
-    upcomingBookings.forEach((booking) => {
+
+    sortedUpcomingBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
       const roomType = makeRoomTypeButton(booking);
@@ -587,9 +585,10 @@ const populateBookingsOverview = () => {
     upcomingVisitsDiv.appendChild(div);
   }
 
-  if (pastBookings.length) {
+  if (sortedPastBookings.length) {
     pastVisitsDiv.innerHTML = '';
-    pastBookings.forEach((booking) => {
+
+    sortedPastBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
       const roomType = makeRoomTypeButton(booking);
@@ -622,13 +621,14 @@ const populateBookingsOverview = () => {
 };
 
 const populateUpcomingBookings = () => {
-  const { upcomingBookings } = getBookingsInfo(userBookings);
+  const { sortedUpcomingBookings } = getBookingsInfo(userBookings);
 
   const upcomingBookingsDiv = document.querySelector('.upcoming-bookings');
 
-  if (upcomingBookings.length) {
+  if (sortedUpcomingBookings.length) {
     upcomingBookingsDiv.innerHTML = '';
-    upcomingBookings.forEach((booking) => {
+
+    sortedUpcomingBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
       const roomType = makeRoomTypeButton(booking);
@@ -661,13 +661,14 @@ const populateUpcomingBookings = () => {
 };
 
 const populatePastBookings = () => {
-  const { pastBookings } = getBookingsInfo(userBookings);
+  const { sortedPastBookings } = getBookingsInfo(userBookings);
 
   const pastBookingsDiv = document.querySelector('.past-bookings');
 
-  if (pastBookings.length) {
+  if (sortedPastBookings.length) {
     pastBookingsDiv.innerHTML = '';
-    pastBookings.forEach((booking) => {
+
+    sortedPastBookings.forEach((booking) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
       const roomType = makeRoomTypeButton(booking);
