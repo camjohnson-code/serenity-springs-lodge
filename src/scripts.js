@@ -29,7 +29,19 @@ const bookingsOverviewSection = document.querySelector('.bookings-overview');
 const bookingsUpcomingSection = document.querySelector('.bookings-upcoming');
 const bookRoomDashboard = document.querySelector('.book-rooms');
 const dashboardButton = document.querySelector('.header-button');
-const footer = document.querySelector('footer');
+const roomSearchButton = document.querySelector('.room-search-button');
+const checkInDateInput = document.getElementById('check-in');
+const numGuestsInput = document.getElementById('guests');
+const submitArrow = document.querySelector('.submit-arrow');
+const welcomeBanner = document.querySelector('.welcome-section');
+const searchForm = document.querySelector('.room-finder');
+const popularRoomsSection = document.querySelector('.popular-rooms');
+const amenitiesSection = document.querySelector('.amenities');
+const availableRoomsSection = document.querySelector('.available-rooms');
+const availableRoomsContainer = document.querySelector(
+  '.available-rooms-container'
+);
+const footer = document.querySelector('.footer');
 const today = new Date();
 let currentUser;
 let allRooms;
@@ -38,7 +50,7 @@ let userBookings;
 
 // Event Listeners
 window.addEventListener('load', function () {
-  getUser('http://localhost:3001/api/v1/customers/37');
+  getUser('http://localhost:3001/api/v1/customers/40');
 });
 
 nav.addEventListener('click', function (event) {
@@ -56,6 +68,7 @@ customerDashboard.addEventListener('click', function (event) {
 });
 
 bookRoomDashboard.addEventListener('click', function (event) {
+  showAvailableRooms(event);
   changeDashboardView(event);
 });
 
@@ -82,7 +95,6 @@ const getUser = (url) => {
       updateUpcomingVisits();
       populateSpendingAmount();
       updatePastVisits();
-      console.log('ALL ROOMS:', allRooms);
     });
 };
 
@@ -239,10 +251,52 @@ const formatDate = (date) => {
 };
 
 const makeRoomTypeButton = (booking) => {
-  return allRooms[booking.roomNumber - 1].roomType
+  return allRooms[booking.roomNumber - 1 || booking.number - 1].roomType
     .split(' ')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+};
+
+const showAvailableRooms = (event) => {
+  if (
+    checkInDateInput.value &&
+    numGuestsInput.value &&
+    (event.target === roomSearchButton || event.target === submitArrow)
+  ) {
+    event.preventDefault();
+    hide(welcomeBanner);
+    hide(searchForm);
+    hide(popularRoomsSection);
+    hide(amenitiesSection);
+    show(availableRoomsSection);
+    populateAvailableRoomsContainer();
+  }
+};
+
+const getBookedRooms = () => {
+  const checkInDate = checkInDateInput.value
+    .split('Check-in Date')[0]
+    .split('-')
+    .join('/');
+
+  return allBookings
+    .filter((booking) => booking.date === checkInDate)
+    .map((room) => room.roomNumber);
+};
+
+const getUnbookedRooms = (bookedRooms) => {
+  return allRooms.filter((room) => {
+    return !bookedRooms.includes(room.number);
+  });
+};
+
+const getAvailableRooms = () => {
+  const numGuests = numGuestsInput.value.split('num guests')[0];
+  const numBedsNeeded = Math.round(numGuests / 2);
+  const bookedRooms = getBookedRooms();
+  const unbookedRooms = getUnbookedRooms(bookedRooms);
+
+  return unbookedRooms.filter((room) => room.numBeds >= numBedsNeeded);
 };
 
 const hide = (element) => {
@@ -538,5 +592,45 @@ const populatePastBookings = () => {
 
     pastBookingsDiv.innerHTML = '';
     pastBookingsDiv.appendChild(div);
+  }
+};
+
+const populateAvailableRoomsContainer = () => {
+  const availableRooms = getAvailableRooms().sort(
+    (a, b) => a.costPerNight - b.costPerNight
+  );
+
+  if (!availableRooms.length) {
+    availableRoomsContainer.innerHTML = `
+    <p>I fiercely apologize, but there aren't any rooms available that match your criteria.</p>
+    <br>
+    <p>Please try <span class="link">again</span>.</p>`;
+  } else {
+    availableRooms.forEach((room) => {
+      const individualRoom = document.createElement('div');
+      const roomImage = document.createElement('div');
+      const roomInfo = document.createElement('div');
+      const roomType = makeRoomTypeButton(room);
+
+      individualRoom.classList.add('individual-room');
+      roomImage.classList.add(
+        'room-image',
+        `${allRooms[room.number - 1].roomType.split(' ')[0]}`
+      );
+      roomInfo.classList.add('room-info');
+
+      roomImage.innerHTML = `<button class="module-button">${roomType}</button>`;
+      roomInfo.innerHTML = `
+      <p class="bold">${room.numBeds} ${room.bedSize} beds.</p>
+      <p><span class="bold">Cost Per Night:</span> ${convertNumToDollarAmount(
+        room.costPerNight
+      )}</p>
+      <button class="orange-button"><span class="bold">Book Now</span></button>
+      `;
+
+      individualRoom.appendChild(roomImage);
+      individualRoom.appendChild(roomInfo);
+      availableRoomsContainer.appendChild(individualRoom);
+    });
   }
 };
