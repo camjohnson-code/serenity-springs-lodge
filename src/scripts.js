@@ -519,6 +519,8 @@ const updateSpendingBreakdown = (bookings) => {
   const container = document.querySelector('.nights-container');
   const sortedBookings = sortBookingsOldToNew(bookings);
 
+  container.innerHTML = '';
+  
   sortedBookings.forEach((booking, index) => {
     const div = document.createElement('div');
 
