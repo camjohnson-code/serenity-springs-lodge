@@ -52,6 +52,7 @@ let allRooms;
 let allBookings;
 let userBookings;
 let goBackLink;
+let bookedRoom;
 
 // Event Listeners
 window.addEventListener('load', function () {
@@ -116,6 +117,22 @@ const getAllBookings = (url) => {
     .then((bookings) => {
       allBookings = bookings.bookings;
     });
+};
+
+const bookRoom = (url) => {
+  const data = {
+    userID: parseInt(currentUser.id),
+    date: `${checkInDateInput.value.replaceAll('-', '/')}`,
+    roomNumber: parseInt(bookedRoom[0].number),
+  };
+
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 };
 
 // Functions
@@ -267,7 +284,9 @@ const changeDashboardView = (event) => {
     event.target.classList.contains('confirm-booking') ||
     event.target.innerText === 'Confirm'
   ) {
+    assignBookedRoom();
     showConfirmedBooking(event);
+    bookRoom('http://localhost:3001/api/v1/bookings');
   }
 };
 
@@ -348,6 +367,25 @@ const getAvailableRooms = () => {
   const unbookedRooms = getUnbookedRooms(bookedRooms);
 
   return unbookedRooms.filter((room) => room.numBeds >= numBedsNeeded);
+};
+
+const assignBookedRoom = () => {
+  const roomContainer = document.querySelector('.individual-room');
+
+  const bedsInfo = document.querySelector('.bed-info').textContent.split(' ');
+  const numBeds = Number(bedsInfo[0]);
+  const bedSize = bedsInfo[1];
+  const costPerNightInfo = document
+    .querySelector('.cost-per-night')
+    .textContent.split(' ')[3];
+  const costPerNight = parseFloat(costPerNightInfo.replace('$', ''));
+
+  bookedRoom = allRooms.filter(
+    (room) =>
+      room.costPerNight === costPerNight &&
+      room.numBeds === numBeds &&
+      room.bedSize === bedSize
+  );
 };
 
 const hide = (element) => {
@@ -690,8 +728,8 @@ const populateAvailableRoomsContainer = () => {
 
       roomImage.innerHTML = `<button class="module-button">${roomType}</button>`;
       roomInfo.innerHTML = `
-      <p class="bold">${room.numBeds} ${room.bedSize} beds.</p>
-      <p><span class="bold">Cost Per Night:</span> ${convertNumToDollarAmount(
+      <p class="bold bed-info">${room.numBeds} ${room.bedSize} beds.</p>
+      <p class="cost-per-night"><span class="bold">Cost Per Night:</span> ${convertNumToDollarAmount(
         room.costPerNight
       )}</p>
       <button class="orange-button book-now-button"><span class="bold">Book Now</span></button>
