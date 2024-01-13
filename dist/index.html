@@ -128,7 +128,9 @@
           <div class="module">
             <p class="spend-amount"></p>
             <br />
-            <p>See a full breakdown <span class="link">here</span>.</p>
+            <p>
+              See a full breakdown <span class="link spending-link">here</span>.
+            </p>
           </div>
         </section>
         <section class="past-visits dashboard-section">
@@ -161,13 +163,13 @@
         <div class="left-header-links">
           <h4>Serenity Springs Lodge</h4>
           <ul>
-            <li>Rooms</li>
-            <li>Amenities</li>
-            <li>Contact</li>
+            <li><a href="#popular-rooms">Rooms</a></li>
+            <li><a href="#amenities">Amenities</a></li>
+            <li><a href="#">Contact</a></li>
           </ul>
         </div>
         <div class="right-header-links">
-          <button class="header-button">Dashboard</button>
+          <button class="header-button orange-button">Dashboard</button>
         </div>
       </div>
       <div class="welcome-section">
@@ -183,16 +185,7 @@
             onfocus="(this.type = 'date')"
             name="check-in"
             id="check-in"
-          />
-        </div>
-        <div>
-          <label for="check-out">Check-out Date</label>
-          <input
-            type="text"
-            name="check-out"
-            onfocus="(this.type = 'date')"
-            id="check-out"
-            placeholder="Select check-out date"
+            required
           />
         </div>
         <div>
@@ -202,11 +195,16 @@
             name="guests"
             id="guests"
             placeholder="Number of guests"
+            min="1"
+            max="8"
+            required
           />
         </div>
-        <button><img src="./images/arrow.png" alt="Submit" /></button>
+        <button type="submit" class="room-search-button">
+          <img src="./images/arrow.png" alt="Submit" class="submit-arrow" />
+        </button>
       </form>
-      <section class="popular-rooms">
+      <section class="popular-rooms" id="popular-rooms">
         <p>Popular Rooms</p>
         <div class="room-container">
           <div class="room-module"><button>Residential Suite</button></div>
@@ -217,7 +215,7 @@
           </div>
         </div>
       </section>
-      <section class="amenities">
+      <section class="amenities" id="amenities">
         <p>Our Amenities</p>
         <div class="amenities-container">
           <div class="amenities-scroller">
@@ -232,33 +230,39 @@
           </div>
         </div>
       </section>
+      <section class="available-rooms hidden">
+        <div class="available-rooms-header">
+          <h4 class="available-rooms-context"></h4>
+        </div>
+        <div class="available-rooms-container"></div>
+      </section>
+      <section class="footer">
+        <section class="left-footer">
+          <div>
+            <p>Serenity Springs Lodge</p>
+            <p>Where Peaceful Moments Become Timeless Memories</p>
+          </div>
+          <div class="footer-links">
+            <a href="https://www.github.com/camjohnson-code"
+              ><img
+                src="./images/github-mark-white.png"
+                alt="Link to my Github Profile"
+            /></a>
+            <a href="https://www.linkedin.com/in/camjohnson-code"
+              ><img
+                src="./images/In-White-96.png"
+                alt="Link to my LinkedIn Profile"
+            /></a>
+          </div>
+        </section>
+        <section class="right-footer">
+          <p href="">Serenity Springs Lodge</p>
+          <a href="">Frequently Asked</a>
+          <a href="">Contact Support</a>
+          <a href="">User Guide</a>
+        </section>
+      </section>
     </section>
-    <footer class="hidden">
-      <section class="left-footer">
-        <div>
-          <p>Serenity Springs Lodge</p>
-          <p>Where Peaceful Moments Become Timeless Memories</p>
-        </div>
-        <div class="footer-links">
-          <a href="https://www.github.com/camjohnson-code"
-            ><img
-              src="./images/github-mark-white.png"
-              alt="Link to my Github Profile"
-          /></a>
-          <a href="https://www.linkedin.com/in/camjohnson-code"
-            ><img
-              src="./images/In-White-96.png"
-              alt="Link to my LinkedIn Profile"
-          /></a>
-        </div>
-      </section>
-      <section class="right-footer">
-        <a href="">Serenity Springs Lodge</a>
-        <a href="">Frequently Asked</a>
-        <a href="">Contact Support</a>
-        <a href="">User Guide</a>
-      </section>
-    </footer>
     <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
     <script src="bundle.js"></script>
   </body>
