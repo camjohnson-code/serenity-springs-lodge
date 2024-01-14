@@ -7,14 +7,14 @@
     <title>Serenity Springs Lodge</title>
   </head>
   <body>
-    <section class="login-page hidden">
-      <div class="login-image">
+    <section class="login-page">
+      <aside class="login-image">
         <img
           class="hero-image"
           src="./images/login.jpg"
           alt="Serenity Springs Lodge Courtyard"
         />
-      </div>
+      </aside>
       <section class="login-form">
         <div class="logo">
           <svg
@@ -44,13 +44,19 @@
             Enter your username and password to login to our dashboard.
           </p>
           <label for="username">Username</label>
-          <input type="text" placeholder="Enter your username" />
+          <input
+            type="text"
+            placeholder="Enter your username"
+            id="username"
+            required
+          />
           <label for="password">Password</label>
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Enter your password"
+            required
           />
           <label for="sign-in"></label>
           <button class="sign-in-button">Sign In</button>
@@ -61,7 +67,7 @@
         </form>
       </section>
     </section>
-    <section class="customer-dashboard">
+    <section class="customer-dashboard hidden">
       <nav class="customer-nav">
         <h2 class="customer-greeting"></h2>
         <button class="nav-button active">
