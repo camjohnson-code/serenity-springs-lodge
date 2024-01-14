@@ -18,7 +18,7 @@ import './images/single.jpg';
 import './images/welcome-section.jpg';
 
 // Global Variables
-const loginPage = document.querySelector('.login-page'); 
+const loginPage = document.querySelector('.login-page');
 const loginForm = document.querySelector('.form');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
@@ -61,7 +61,7 @@ let bookedRoom;
 
 // Event Listeners
 window.addEventListener('load', function () {
-  ;
+  getUser(`http://localhost:3001/api/v1/customers/50`);
 });
 
 loginForm.addEventListener('submit', function (event) {
@@ -78,7 +78,9 @@ loginForm.addEventListener('submit', function (event) {
       showLoginErrorMessage(customerID, enteredPassword);
     } else {
       event.preventDefault();
-      getUser(`http://localhost:3001/api/v1/customers/${customerID}`).then(() => changeDashboardView(event))
+      getUser(`http://localhost:3001/api/v1/customers/${customerID}`).then(() =>
+        changeDashboardView(event)
+      );
     }
   }
 });
@@ -364,7 +366,16 @@ const convertNumToDollarAmount = (num) => {
 };
 
 const formatDate = (date) => {
-  const dateObject = new Date(date);
+  let dateInputs;
+  if (date.split('/').map(Number).length === 3)
+    dateInputs = date.split('/').map(Number);
+  else dateInputs = date.split('-').map(Number);
+
+
+  console.log('DATE INPUTS', dateInputs);
+
+  const [year, month, day] = dateInputs;
+  const dateObject = new Date(year, month - 1, day);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
   return dateObject.toLocaleDateString('en-US', options);
@@ -478,7 +489,6 @@ const populateNextVisit = (bookings) => {
 
   if (bookings.length) {
     const date = bookings[0].date;
-
     const formattedDate = formatDate(date);
     const roomType = makeRoomTypeButton(bookings[0]);
 
@@ -737,7 +747,7 @@ const populateAvailableRoomsContainer = () => {
 
   const roomDate = checkInDateInput.value;
   const formattedDate = formatDate(roomDate);
-  
+
   availableRoomsDisplay.innerText = `Available Rooms on ${formattedDate}`;
 
   if (!goBackLink) {
