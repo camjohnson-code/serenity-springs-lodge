@@ -311,7 +311,8 @@ li button {
 }
 
 .upcoming-visits-container,
-.past-visits-container {
+.past-visits-container,
+.individual-room {
   display: flex;
 }
 
@@ -402,7 +403,17 @@ li button {
   font-weight: 500;
 }
 
-.header button {
+.left-header-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.left-header-links a:hover,
+.right-footer a:hover {
+  text-decoration: underline;
+}
+
+.orange-button {
   height: 40px;
   width: 120px;
   border-radius: 50px;
@@ -548,7 +559,7 @@ li button {
 
 .image-container div:nth-of-type(2) {
   background: url('../images/junior-suite.jpg') center/cover;
-  background-position: center calc(100% + 240px);
+  background-position: center calc(100% + 30px);
 }
 
 .room-module button,
@@ -630,7 +641,35 @@ li button {
   background: url('../images/bar.jpg') center/cover;
 }
 
-footer {
+.available-rooms {
+  padding: 0 40px 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.available-rooms h4 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.available-rooms-container {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.no-rooms {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
   width: 100%;
   height: 150px;
   background-color: var(--light-gray);
@@ -638,6 +677,11 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 20px 70px;
+}
+
+.footer-no-rooms {
+  position: fixed;
+  bottom: 0;
 }
 
 .left-footer {
@@ -675,16 +719,61 @@ footer {
   height: 70%;
 }
 
-.right-footer a {
+.right-footer a,
+.right-footer p {
   color: white;
   text-decoration: none;
   font-size: 12px;
   font-weight: 300;
 }
 
-.right-footer a:first-of-type,
+.right-footer p:first-of-type,
 .bold {
   font-weight: 700;
+}
+
+.available-rooms-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.available-rooms-context {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.available-rooms-header p {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.individual-room {
+  width: 48%;
+  height: 150px;
+  background-color: var(--light-gray);
+  border-radius: 25px;
+}
+
+.room-image {
+  width: 50%;
+  border-radius: 25px 0 0 25px;
+}
+
+.room-image button {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.room-info {
+  width: 50%;
+  padding: 15px 15px 0 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-info button {
+  margin-top: 40px;
 }
 
 .hidden {
