@@ -57,13 +57,10 @@ let allRooms;
 let allBookings;
 let userBookings;
 let goBackLink;
+let confirmButton;
 let bookedRoom;
 
 // Event Listeners
-// window.addEventListener('load', function () {
-//   getUser(`http://localhost:3001/api/v1/customers/50`);
-// });
-
 loginForm.addEventListener('submit', function (event) {
   if (event.target === loginForm) {
     const customerID = username.value.split('customer')[1];
@@ -749,7 +746,8 @@ const populateAvailableRoomsContainer = () => {
   availableRoomsDisplay.innerText = `Available Rooms on ${formattedDate}`;
 
   if (!goBackLink) {
-    goBackLink = document.createElement('p');
+    goBackLink = document.createElement('a');
+    goBackLink.href = '#';
     goBackLink.innerText = `Go Back`;
 
     availableRoomsHeader.appendChild(goBackLink);
@@ -787,7 +785,7 @@ const populateAvailableRoomsContainer = () => {
       <p class="cost-per-night"><span class="bold">Cost Per Night:</span> ${convertNumToDollarAmount(
         room.costPerNight
       )}</p>
-      <button class="orange-button book-now-button"><span class="bold">Book Now</span></button>
+      <button class="orange-button book-now-button"><span class="bold book-now-button">Book Now</span></button>
       `;
 
       individualRoom.appendChild(roomImage);
@@ -806,7 +804,7 @@ const showBookedRoom = (event) => {
   availableRoomsContainer.innerText = 'Please confirm your booking.';
   availableRoomsContainer.appendChild(selectedRoom);
 
-  const confirmButton = document.querySelector('.book-now-button');
+  confirmButton = document.querySelector('.book-now-button');
   confirmButton.innerText = 'Confirm';
   confirmButton.classList.add('confirm-booking', 'bold');
 };
@@ -815,7 +813,7 @@ const showConfirmedBooking = (event) => {
   availableRoomsContainer.innerHTML = `
     <p>Your room has been booked!</p>
     <br>
-    <p>Click <span class="link return-to-dashboard">here</span> to return to the dashboard and view your reservations.</p>
+    <p>Click <a href="#" class="link return-to-dashboard">here</a> to return to the dashboard and view your reservations.</p>
     `;
 };
 
@@ -853,5 +851,5 @@ const showLoginErrorMessage = (submittedID, submittedPassword) => {
 };
 
 const formatDateInput = () => {
-    checkInDateInput.min = new Date().toISOString().split("T")[0];
-}
+  checkInDateInput.min = new Date().toISOString().split('T')[0];
+};
