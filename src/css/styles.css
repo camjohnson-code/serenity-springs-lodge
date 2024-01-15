@@ -360,10 +360,12 @@ li button {
  text-shadow: 0 0 8px rgba(0, 0, 0, 1.0);
 }
 
-.link {
+.link,
+a {
   text-decoration: underline;
   font-weight: 700;
   cursor: pointer;
+  color: white;
 }
 
 .dashboard-section,
