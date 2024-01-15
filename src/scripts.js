@@ -109,9 +109,12 @@ bookingsUpcomingSection.addEventListener('click', function (event) {
 });
 
 // API Calls
+const fetchData = (url) => {
+  return fetch(url).then((respone) => respone.json());
+};
+
 const getUser = (url) => {
-  return fetch(url)
-    .then((respone) => respone.json())
+  return fetchData(url)
     .then((user) => {
       currentUser = user;
       populateName(currentUser);
@@ -128,19 +131,15 @@ const getUser = (url) => {
 };
 
 const getAllRooms = (url) => {
-  return fetch(url)
-    .then((respone) => respone.json())
-    .then((rooms) => {
-      allRooms = rooms.rooms;
-    });
+  return fetchData(url).then((rooms) => {
+    allRooms = rooms.rooms;
+  });
 };
 
 const getAllBookings = (url) => {
-  return fetch(url)
-    .then((respone) => respone.json())
-    .then((bookings) => {
-      allBookings = bookings.bookings;
-    });
+  return fetchData(url).then((bookings) => {
+    allBookings = bookings.bookings;
+  });
 };
 
 const bookRoom = (url) => {
