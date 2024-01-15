@@ -18,6 +18,11 @@ import './images/single.jpg';
 import './images/welcome-section.jpg';
 
 // Global Variables
+const loginPage = document.querySelector('.login-page');
+const loginForm = document.querySelector('.form');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const signInButton = document.querySelector('.sign-in-button');
 const nav = document.querySelector('.customer-nav');
 const navButtons = document.querySelectorAll('.nav-button');
 const dropdownButtons = document.querySelectorAll('.dropdown-button');
@@ -55,8 +60,29 @@ let goBackLink;
 let bookedRoom;
 
 // Event Listeners
-window.addEventListener('load', function () {
-  getUser('http://localhost:3001/api/v1/customers/40');
+// window.addEventListener('load', function () {
+//   getUser(`http://localhost:3001/api/v1/customers/50`);
+// });
+
+loginForm.addEventListener('submit', function (event) {
+  if (event.target === loginForm) {
+    const customerID = username.value.split('customer')[1];
+    const enteredPassword = password.value;
+
+    if (
+      !Number(customerID) ||
+      Number(customerID) > 50 ||
+      enteredPassword !== 'overlook2021'
+    ) {
+      event.preventDefault();
+      showLoginErrorMessage(customerID, enteredPassword);
+    } else {
+      event.preventDefault();
+      getUser(`http://localhost:3001/api/v1/customers/${customerID}`).then(() =>
+        changeDashboardView(event)
+      );
+    }
+  }
 });
 
 nav.addEventListener('click', function (event) {
@@ -100,6 +126,7 @@ const getUser = (url) => {
       updateUpcomingVisits();
       populateSpendingAmount();
       updatePastVisits();
+      formatDateInput();
     });
 };
 
@@ -168,6 +195,11 @@ const updatePastVisits = () => {
 };
 
 const changeDashboardView = (event) => {
+  if (event.target === loginForm) {
+    hide(loginPage);
+    show(customerDashboard);
+  }
+
   if (event.target.innerText === 'Home') {
     dashboardSections.forEach((section) => {
       hide(section);
@@ -243,7 +275,7 @@ const changeDashboardView = (event) => {
       hide(section);
       show(dashboardSections[0]);
     });
-    getUser('http://localhost:3001/api/v1/customers/40');
+    getUser(`http://localhost:3001/api/v1/customers/${currentUser.id}`);
   }
 
   if (
@@ -291,7 +323,7 @@ const changeDashboardView = (event) => {
     assignBookedRoom();
     showConfirmedBooking(event);
     bookRoom('http://localhost:3001/api/v1/bookings');
-    getUser('http://localhost:3001/api/v1/customers/40');
+    getUser(`http://localhost:3001/api/v1/customers/${currentUser.id}`);
   }
 };
 
@@ -335,7 +367,13 @@ const convertNumToDollarAmount = (num) => {
 };
 
 const formatDate = (date) => {
-  const dateObject = new Date(date);
+  let dateInputs;
+  if (date.split('/').map(Number).length === 3)
+    dateInputs = date.split('/').map(Number);
+  else dateInputs = date.split('-').map(Number);
+
+  const [year, month, day] = dateInputs;
+  const dateObject = new Date(year, month - 1, day);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
   return dateObject.toLocaleDateString('en-US', options);
@@ -449,7 +487,6 @@ const populateNextVisit = (bookings) => {
 
   if (bookings.length) {
     const date = bookings[0].date;
-
     const formattedDate = formatDate(date);
     const roomType = makeRoomTypeButton(bookings[0]);
 
@@ -549,7 +586,8 @@ const populateBookingsOverview = () => {
   const upcomingVisitsDiv = document.querySelector('.overview-upcoming');
   const pastVisitsDiv = document.querySelector('.overview-past');
 
-  const { sortedPastBookings, sortedUpcomingBookings } = getBookingsInfo(userBookings);
+  const { sortedPastBookings, sortedUpcomingBookings } =
+    getBookingsInfo(userBookings);
 
   if (sortedUpcomingBookings.length) {
     upcomingVisitsDiv.innerHTML = '';
@@ -707,6 +745,7 @@ const populateAvailableRoomsContainer = () => {
 
   const roomDate = checkInDateInput.value;
   const formattedDate = formatDate(roomDate);
+
   availableRoomsDisplay.innerText = `Available Rooms on ${formattedDate}`;
 
   if (!goBackLink) {
@@ -779,3 +818,40 @@ const showConfirmedBooking = (event) => {
     <p>Click <span class="link return-to-dashboard">here</span> to return to the dashboard and view your reservations.</p>
     `;
 };
+
+const showLoginErrorMessage = (submittedID, submittedPassword) => {
+  const usernameErrorMessage = document.querySelector('.username-error');
+  const passwordErrorMessage = document.querySelector('.password-error');
+
+  if (usernameErrorMessage) {
+    usernameErrorMessage.remove();
+    username.classList.remove('sign-in-error');
+  }
+
+  if (passwordErrorMessage) {
+    passwordErrorMessage.remove();
+    password.classList.remove('sign-in-error');
+  }
+
+  if (!Number(submittedID) || Number(submittedID) > 50) {
+    const errorText = document.createElement('p');
+    errorText.classList.add('sign-in-error-message', 'username-error');
+    errorText.innerText = ``;
+    errorText.innerText = `Invalid username! Please try again.`;
+    username.classList.add('sign-in-error');
+    username.insertAdjacentElement('afterend', errorText);
+  }
+
+  if (submittedPassword !== 'overlook2021') {
+    const errorText = document.createElement('p');
+    errorText.classList.add('sign-in-error-message', 'password-error');
+    errorText.innerText = ``;
+    errorText.innerText = `Incorrect password! Please try again.`;
+    password.classList.add('sign-in-error');
+    password.insertAdjacentElement('afterend', errorText);
+  }
+};
+
+const formatDateInput = () => {
+    checkInDateInput.min = new Date().toISOString().split("T")[0];
+}
