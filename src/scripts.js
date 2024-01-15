@@ -110,7 +110,16 @@ bookingsUpcomingSection.addEventListener('click', function (event) {
 
 // API Calls
 const fetchData = (url) => {
-  return fetch(url).then((respone) => respone.json());
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Oops! Something went wrong. Please try again later.`);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 const getUser = (url) => {
