@@ -60,9 +60,9 @@ let goBackLink;
 let bookedRoom;
 
 // Event Listeners
-window.addEventListener('load', function () {
-  getUser(`http://localhost:3001/api/v1/customers/50`);
-});
+// window.addEventListener('load', function () {
+//   getUser(`http://localhost:3001/api/v1/customers/50`);
+// });
 
 loginForm.addEventListener('submit', function (event) {
   if (event.target === loginForm) {
@@ -126,6 +126,7 @@ const getUser = (url) => {
       updateUpcomingVisits();
       populateSpendingAmount();
       updatePastVisits();
+      formatDateInput();
     });
 };
 
@@ -370,9 +371,6 @@ const formatDate = (date) => {
   if (date.split('/').map(Number).length === 3)
     dateInputs = date.split('/').map(Number);
   else dateInputs = date.split('-').map(Number);
-
-
-  console.log('DATE INPUTS', dateInputs);
 
   const [year, month, day] = dateInputs;
   const dateObject = new Date(year, month - 1, day);
@@ -853,3 +851,7 @@ const showLoginErrorMessage = (submittedID, submittedPassword) => {
     password.insertAdjacentElement('afterend', errorText);
   }
 };
+
+const formatDateInput = () => {
+    checkInDateInput.min = new Date().toISOString().split("T")[0];
+}
