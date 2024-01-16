@@ -113,12 +113,12 @@ const fetchData = (url) => {
   return fetch(url)
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`Oops! Something went wrong. Please try again later.`);
+        throw new Error(`Oops! Something went wrong. Please try again.`);
       }
       return response.json();
     })
     .catch((error) => {
-      console.error(error);
+      alert(error);
     });
 };
 
@@ -136,19 +136,30 @@ const getUser = (url) => {
       populateSpendingAmount();
       updatePastVisits();
       formatDateInput();
+    })
+    .catch((error) => {
+      alert(`Oops! Something went wrong. Please try again.`);
     });
 };
 
 const getAllRooms = (url) => {
-  return fetchData(url).then((rooms) => {
-    allRooms = rooms.rooms;
-  });
+  return fetchData(url)
+    .then((rooms) => {
+      allRooms = rooms.rooms;
+    })
+    .catch((error) => {
+      alert(`Oops! Something went wrong. Please try again.`);
+    });
 };
 
 const getAllBookings = (url) => {
-  return fetchData(url).then((bookings) => {
-    allBookings = bookings.bookings;
-  });
+  return fetchData(url)
+    .then((bookings) => {
+      allBookings = bookings.bookings;
+    })
+    .catch((error) => {
+      alert(`Oops! Something went wrong. Please try again.`);
+    });
 };
 
 const bookRoom = (url) => {
@@ -164,7 +175,16 @@ const bookRoom = (url) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-  });
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to book room. Please try again.`);
+      }
+      return response;
+    })
+    .catch((error) => {
+      alert(error);
+    });
 };
 
 // Functions
@@ -301,6 +321,24 @@ const changeDashboardView = (event) => {
     event.target.innerText === 'Go Back' ||
     event.target.innerText === 'again'
   ) {
+    const nestedDivs = availableRoomsContainer.querySelectorAll('div');
+    if (nestedDivs.length === 3) {
+      show(availableRoomsSection);
+      populateAvailableRoomsContainer();
+    } else {
+      checkInDateInput.value = '';
+      checkInDateInput.type = 'text';
+      numGuestsInput.value = '';
+      show(welcomeBanner);
+      show(searchForm);
+      show(popularRoomsSection);
+      show(amenitiesSection);
+      hide(availableRoomsSection);
+      footer.classList.remove('footer-no-rooms');
+    }
+  }
+
+  if (event.target.innerText === 'New Search') {
     checkInDateInput.value = '';
     checkInDateInput.type = 'text';
     numGuestsInput.value = '';
@@ -397,6 +435,8 @@ const getBookedRooms = () => {
     .split('-')
     .join('/');
 
+  console.log('all rooms', allRooms);
+  console.log('all bookings', allBookings);
   return allBookings
     .filter((booking) => booking.date === checkInDate)
     .map((room) => room.roomNumber);
@@ -757,6 +797,7 @@ const populateAvailableRoomsContainer = () => {
     goBackLink = document.createElement('a');
     goBackLink.href = '#';
     goBackLink.innerText = `Go Back`;
+    goBackLink.classList.add('go-back-link');
 
     availableRoomsHeader.appendChild(goBackLink);
   }
@@ -794,6 +835,7 @@ const populateAvailableRoomsContainer = () => {
         room.costPerNight
       )}</p>
       <button class="orange-button book-now-button"><span class="bold book-now-button">Book Now</span></button>
+      <button class="orange-button confirm-booking hidden"><span class="bold">Confirm</span></button>
       `;
 
       individualRoom.appendChild(roomImage);
@@ -812,12 +854,16 @@ const showBookedRoom = (event) => {
   availableRoomsContainer.innerText = 'Please confirm your booking.';
   availableRoomsContainer.appendChild(selectedRoom);
 
-  confirmButton = document.querySelector('.book-now-button');
-  confirmButton.innerText = 'Confirm';
-  confirmButton.classList.add('confirm-booking', 'bold');
+  const confirmButton = document.querySelector('.confirm-booking');
+  const bookNowButton = document.querySelector('.book-now-button');
+  show(confirmButton);
+  hide(bookNowButton);
 };
 
 const showConfirmedBooking = (event) => {
+  goBackLink = document.querySelector('.go-back-link');
+  goBackLink.innerText = 'New Search';
+
   availableRoomsContainer.innerHTML = `
     <p>Your room has been booked!</p>
     <br>
