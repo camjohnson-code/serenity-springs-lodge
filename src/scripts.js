@@ -109,9 +109,12 @@ bookingsUpcomingSection.addEventListener('click', function (event) {
 });
 
 // API Calls
+const fetchData = (url) => {
+  return fetch(url).then((respone) => respone.json());
+};
+
 const getUser = (url) => {
-  return fetch(url)
-    .then((respone) => respone.json())
+  return fetchData(url)
     .then((user) => {
       currentUser = user;
       populateName(currentUser);
@@ -128,19 +131,15 @@ const getUser = (url) => {
 };
 
 const getAllRooms = (url) => {
-  return fetch(url)
-    .then((respone) => respone.json())
-    .then((rooms) => {
-      allRooms = rooms.rooms;
-    });
+  return fetchData(url).then((rooms) => {
+    allRooms = rooms.rooms;
+  });
 };
 
 const getAllBookings = (url) => {
-  return fetch(url)
-    .then((respone) => respone.json())
-    .then((bookings) => {
-      allBookings = bookings.bookings;
-    });
+  return fetchData(url).then((bookings) => {
+    allBookings = bookings.bookings;
+  });
 };
 
 const bookRoom = (url) => {
@@ -293,6 +292,24 @@ const changeDashboardView = (event) => {
     event.target.innerText === 'Go Back' ||
     event.target.innerText === 'again'
   ) {
+    const nestedDivs = availableRoomsContainer.querySelectorAll('div');
+    if (nestedDivs.length === 3) {
+      show(availableRoomsSection);
+      populateAvailableRoomsContainer();
+    } else {
+      checkInDateInput.value = '';
+      checkInDateInput.type = 'text';
+      numGuestsInput.value = '';
+      show(welcomeBanner);
+      show(searchForm);
+      show(popularRoomsSection);
+      show(amenitiesSection);
+      hide(availableRoomsSection);
+      footer.classList.remove('footer-no-rooms');
+    }
+  }
+
+  if (event.target.innerText === 'New Search') {
     checkInDateInput.value = '';
     checkInDateInput.type = 'text';
     numGuestsInput.value = '';
@@ -749,6 +766,7 @@ const populateAvailableRoomsContainer = () => {
     goBackLink = document.createElement('a');
     goBackLink.href = '#';
     goBackLink.innerText = `Go Back`;
+    goBackLink.classList.add('go-back-link');
 
     availableRoomsHeader.appendChild(goBackLink);
   }
@@ -786,6 +804,7 @@ const populateAvailableRoomsContainer = () => {
         room.costPerNight
       )}</p>
       <button class="orange-button book-now-button"><span class="bold book-now-button">Book Now</span></button>
+      <button class="orange-button confirm-booking hidden"><span class="bold">Confirm</span></button>
       `;
 
       individualRoom.appendChild(roomImage);
@@ -804,12 +823,16 @@ const showBookedRoom = (event) => {
   availableRoomsContainer.innerText = 'Please confirm your booking.';
   availableRoomsContainer.appendChild(selectedRoom);
 
-  confirmButton = document.querySelector('.book-now-button');
-  confirmButton.innerText = 'Confirm';
-  confirmButton.classList.add('confirm-booking', 'bold');
+  const confirmButton = document.querySelector('.confirm-booking');
+  const bookNowButton = document.querySelector('.book-now-button');
+  show(confirmButton);
+  hide(bookNowButton)
 };
 
 const showConfirmedBooking = (event) => {
+  goBackLink = document.querySelector('.go-back-link');
+  goBackLink.innerText = 'New Search';
+
   availableRoomsContainer.innerHTML = `
     <p>Your room has been booked!</p>
     <br>
