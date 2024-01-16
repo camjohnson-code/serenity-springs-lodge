@@ -1092,11 +1092,12 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
+  }
 
-.past-visits-container, .upcoming-visits-container {
-  justify-content: flex-start;
-}
+  .past-visits-container,
+  .upcoming-visits-container {
+    justify-content: flex-start;
+  }
 
   .home .spending {
     align-items: flex-start;
@@ -1136,7 +1137,7 @@ a {
   }
 
   .right-header-links .orange-button {
-    height:  25px;
+    height: 25px;
     width: 80px;
     font-size: 12px;
   }
@@ -1164,7 +1165,7 @@ a {
     height: 200px;
     width: 100%;
     margin-left: 0;
-}
+  }
 
   .amenities-scroller .amenity:nth-of-type(1) {
     background-position: center calc(100% + 220px);
@@ -1215,9 +1216,11 @@ a {
     font-size: 18px;
   }
 
-  room-image button, .room-info p, .orange-button {
+  room-image button,
+  .room-info p,
+  .orange-button {
     font-size: 14px;
-}
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1293,17 +1296,46 @@ a {
     width: 200px;
   }
 
+  .welcome-section {
+    background-position: center calc(100% + 190px);
+  }
+
+  .welcome-section h5 {
+    font-size: 36px;
+  }
+
+  .welcome-section p {
+    font-size: 16px;
+  }
+
   p,
   .content p,
   .module p {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .room-finder div:nth-of-type(2) {
     border-left: 0.5px solid white;
   }
 
-  .amenities-scroller {
+  .room-container div {
+    width: 32%;
+  }
+
+  .room-module {
+    margin: 0;
+  }
+
+  .room-module:nth-of-type(2) {
+    margin: 10px 2%;
+  }
+
+  .room-container .room-module,
+  .room-container .image-container {
+    height: 350px;
+  }
+
+  .amenities-container {
     -webkit-mask: linear-gradient(
       90deg,
       transparent,
@@ -1318,9 +1350,87 @@ a {
       white 80%,
       transparent
     );
+  }
+
+  .amenities-scroller {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
     @media (prefers-reduced-motion: no-preference) {
       animation: scroll 25s linear infinite;
     }
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-143.25%);
+    }
+  }
+
+  .amenity:nth-of-type(5),
+  .amenity:nth-of-type(6),
+  .amenity:nth-of-type(7),
+  .amenity:nth-of-type(8) {
+    display: flex;
+    background-position: center calc(100% + 20px);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(1),
+  .amenities-scroller .amenity:nth-of-type(5) {
+    background-position: center calc(100% + 20px);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(2),
+  .amenities-scroller .amenity:nth-of-type(6) {
+    background: url('../images/lobby.jpg') center/cover;
+  }
+
+  .amenities-scroller .amenity:nth-of-type(3),
+  .amenities-scroller .amenity:nth-of-type(7) {
+    background: url('../images/luxury-pool.jpg') center/cover;
+  }
+
+  .amenities-scroller .amenity:nth-of-type(4),
+  .amenities-scroller .amenity:nth-of-type(8) {
+    background: url('../images/bar.jpg') center/cover;
+  }
+
+  .room-container {
+    flex-direction: row;
+  }
+
+  .image-container .room-module {
+    width: 100%;
+    height: auto;
+  }
+
+  .room-module div {
+    width: 30%;
+    height: 200px;
+  }
+
+  .amenity {
+    height: 310px;
+  }
+
+  .footer {
+    margin-top: 20px;
+    padding: 10px 70px;
+  }
+
+  .left-footer {
+    width: 50%;
+  }
+
+  .right-footer {
+    justify-content: space-evenly;
+  }
+
+  .individual-room {
+    width: 48%;
   }
 }
 
