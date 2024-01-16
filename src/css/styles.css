@@ -89,7 +89,6 @@ label {
 
 input,
 .sign-in-button {
-  width: 400px;
   height: 60px;
 }
 
@@ -198,7 +197,7 @@ li {
   border: none;
   background: none;
   text-align: left;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .dropdown-button {
@@ -262,8 +261,14 @@ li button {
   margin-bottom: 5px;
 }
 
+.nav-footer-links:hover {
+  text-decoration: underline;
+}
+
 .nav-footer-links:first-of-type {
   margin-bottom: 10px;
+  text-decoration: none;
+  cursor: default;
 }
 
 .nav-footer-links:last-of-type {
@@ -294,7 +299,7 @@ li button {
 .dashboard-info h3 {
   font-weight: 700;
   font-size: 24px;
-  margin-bottom: 15px
+  margin-bottom: 15px;
 }
 
 .content {
@@ -357,7 +362,7 @@ li button {
 }
 
 .date {
- text-shadow: 0 0 8px rgba(0, 0, 0, 1.0);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 1);
 }
 
 .link,
@@ -478,11 +483,6 @@ a {
   margin-left: 15px;
 }
 
-.room-finder div:nth-of-type(2),
-.room-finder div:nth-of-type(3) {
-  border-left: 0.5px solid white;
-}
-
 .room-finder div input {
   width: 100%;
   margin: 0;
@@ -507,8 +507,6 @@ a {
   background-color: var(--orange);
   border: none;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
   rotate: 90deg;
 }
 
@@ -589,14 +587,6 @@ a {
 .amenities-container {
   display: flex;
   justify-content: center;
-  -webkit-mask: linear-gradient(
-    90deg,
-    transparent,
-    white 20%,
-    white 80%,
-    transparent
-  );
-  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
 }
 
 .amenities-scroller:hover {
@@ -605,10 +595,10 @@ a {
 
 @keyframes scroll {
   from {
-    transform: translateX(25%);
+    transform: translateX(0);
   }
   to {
-    transform: translateX(-25%);
+    transform: translateX(-129%);
   }
 }
 
@@ -627,10 +617,6 @@ a {
   width: max-content;
   display: flex;
   flex-wrap: nowrap;
-
-  @media (prefers-reduced-motion: no-preference) {
-    animation: scroll 25s linear infinite;
-  }
 }
 
 .amenities-scroller .amenity:nth-of-type(1),
@@ -791,4 +777,841 @@ a {
 
 .hidden {
   display: none;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 320px) {
+  .login-image {
+    display: none;
+  }
+
+  .login-form {
+    padding-left: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    margin-bottom: 40px;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .logo p {
+    font-size: 12px;
+  }
+
+  .login-instruction {
+    margin-bottom: 20px;
+  }
+
+  .form {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  label {
+    font-size: 18px;
+  }
+
+  input,
+  .sign-in-button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder {
+    font-size: 14px;
+  }
+
+  .sign-in-button {
+    font-size: 18px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .dashboard-info {
+    width: 100%;
+    padding: 20px 10px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .nights-container {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .module {
+    width: 150px;
+    margin: 10px;
+  }
+
+  .content {
+    margin: none;
+  }
+
+  .content p,
+  .module p {
+    font-size: 14px;
+  }
+
+  .past-visits-container,
+  .upcoming-visits-container {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .home .dashboard-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .book-rooms {
+    width: 100%;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .welcome-section {
+    margin-top: 30px;
+    background-position: center;
+    height: 250px;
+  }
+
+  .welcome-section h5 {
+    font-size: 24px;
+  }
+
+  .welcome-section h5,
+  .welcome-section p {
+    text-align: center;
+  }
+
+  .welcome-section p {
+    font-size: 12px;
+  }
+
+  .room-finder {
+    width: 90%;
+    padding: 10px;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .popular-rooms {
+    height: auto;
+  }
+
+  .room-finder div {
+    width: 100%;
+    padding-top: 15px;
+  }
+
+  .room-container,
+  .image-container {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 100%;
+  }
+
+  .room-module {
+    width: 100%;
+    height: 200px;
+  }
+
+  .image-container .room-module:nth-of-type(1),
+  .image-container .room-module:nth-of-type(2) {
+    background-position: center;
+  }
+
+  .amenities {
+    height: auto;
+    width: 90%;
+  }
+
+  .amenity {
+    height: 200px;
+    width: auto;
+    aspect-ratio: 1 / 1;
+    margin: 10px 0;
+  }
+
+  .amenity:nth-of-type(5),
+  .amenity:nth-of-type(6),
+  .amenity:nth-of-type(7),
+  .amenity:nth-of-type(8) {
+    display: none;
+  }
+
+  .amenities-scroller {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .footer {
+    padding: 10px;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .left-footer div:first-of-type {
+    display: none;
+  }
+
+  .left-footer {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .right-footer {
+    align-items: center;
+    height: 100%;
+  }
+
+  .available-rooms {
+    padding: 10px;
+  }
+
+  .available-rooms h4,
+  .available-rooms a {
+    font-size: 14px;
+    width: 50%;
+  }
+
+  .available-rooms a {
+    text-align: right;
+  }
+
+  .available-rooms-container {
+    width: 100%;
+  }
+
+  .individual-room {
+    width: 100%;
+  }
+
+  .room-image button,
+  .room-info p,
+  .orange-button {
+    font-size: 12px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 375px) {
+  .logo p {
+    font-size: 14px;
+  }
+
+  .room-info button {
+    margin-top: 50px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 425px) {
+  .logo p {
+    font-size: 16px;
+  }
+
+  .room-info button {
+    margin-top: 55px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 768px) {
+  .logo p {
+    font-size: 16px;
+  }
+
+  .form,
+  .logo {
+    padding: 0 80px;
+  }
+
+  nav {
+    display: flex;
+    width: 22%;
+  }
+
+  h2 {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  nav button {
+    font-size: 12px;
+  }
+
+  nav button img {
+    width: 15px;
+    height: auto;
+  }
+
+  .nav-footer a {
+    font-size: 10px;
+  }
+
+  .portfolio-links {
+    width: 15%;
+  }
+
+  .dashboard-info {
+    width: 80%;
+    padding: 20px 40px;
+  }
+
+  h3 {
+    text-align: left;
+  }
+
+  .nights-container {
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .home .dashboard-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .past-visits-container,
+  .upcoming-visits-container {
+    justify-content: flex-start;
+  }
+
+  .home .spending {
+    align-items: flex-start;
+  }
+
+  .module {
+    width: 150px;
+    margin: 10px 20px 10px 0;
+  }
+
+  .content {
+    margin: none;
+  }
+
+  .content p,
+  .module p {
+    font-size: 14px;
+  }
+
+  .past-visits-container {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .header {
+    display: flex;
+  }
+
+  .left-header-links h4 {
+    font-size: 16px;
+  }
+
+  .left-header-links li {
+    font-size: 12px;
+  }
+
+  .right-header-links .orange-button {
+    height: 25px;
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .room-finder {
+    width: 55%;
+    height: 80px;
+    flex-direction: row;
+    padding: 10px 20px;
+  }
+
+  .room-finder div {
+    padding-top: 0;
+  }
+
+  .room-finder div:nth-of-type(2) {
+    border-left: 0.5px solid white;
+  }
+
+  .room-finder button {
+    padding: 10px;
+  }
+
+  .image-container > .room-module {
+    height: 200px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .amenities-scroller .amenity:nth-of-type(1) {
+    background-position: center calc(100% + 220px);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(2) {
+    background-position: center calc(100% + 170px);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(3) {
+    background-position: center calc(100%);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(4) {
+    background-position: center calc(100% + 170px);
+  }
+
+  .left-footer {
+    width: 25%;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .left-footer div:first-of-type {
+    display: block;
+  }
+
+  .footer {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+
+  .right-footer,
+  .left-footer {
+    height: 75%;
+  }
+
+  .available-rooms {
+    padding: 20px;
+  }
+
+  .available-rooms-header {
+    padding: 0;
+  }
+
+  .available-rooms h4 {
+    font-size: 18px;
+  }
+
+  room-image button,
+  .room-info p,
+  .orange-button {
+    font-size: 14px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 1024px) {
+  .login-image {
+    display: block;
+  }
+
+  .login-form {
+    width: 50%;
+  }
+
+  .form,
+  .logo {
+    padding: 0 40px;
+  }
+
+  .logo p {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 54px;
+  }
+
+  form p {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 24px;
+  }
+
+  input,
+  .sign-in-button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder {
+    font-size: 16px;
+  }
+
+  .sign-in-button {
+    font-size: 22px;
+  }
+
+  nav {
+    width: 20%;
+  }
+
+  .customer-greeting {
+    text-align: center;
+    padding: 0 10px;
+    font-size: 24px;
+  }
+
+  nav button {
+    font-size: 12px;
+  }
+
+  nav button img {
+    width: 20px;
+    height: auto;
+  }
+
+  .portfolio-links {
+    width: 15%;
+  }
+
+  .module {
+    width: 200px;
+  }
+
+  .welcome-section {
+    background-position: center calc(100% + 190px);
+    height: 350px;
+  }
+
+  .welcome-section h5 {
+    font-size: 36px;
+  }
+
+  .welcome-section p {
+    font-size: 16px;
+  }
+
+  p,
+  .content p,
+  .module p {
+    font-size: 18px;
+  }
+
+  .room-finder div:nth-of-type(2) {
+    border-left: 0.5px solid white;
+  }
+
+  .room-container div {
+    width: 32%;
+  }
+
+  .room-module {
+    margin: 0;
+  }
+
+  .room-module:nth-of-type(2) {
+    margin: 10px 2%;
+  }
+
+  .room-container .room-module,
+  .room-container .image-container {
+    height: 350px;
+  }
+
+  .amenities-container {
+    -webkit-mask: linear-gradient(
+      90deg,
+      transparent,
+      white 20%,
+      white 80%,
+      transparent
+    );
+    mask: linear-gradient(
+      90deg,
+      transparent,
+      white 20%,
+      white 80%,
+      transparent
+    );
+  }
+
+  .amenities-scroller {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    @media (prefers-reduced-motion: no-preference) {
+      animation: scroll 25s linear infinite;
+    }
+  }
+
+  .amenity:nth-of-type(5),
+  .amenity:nth-of-type(6),
+  .amenity:nth-of-type(7),
+  .amenity:nth-of-type(8) {
+    display: flex;
+  }
+
+  .amenities-scroller .amenity:nth-of-type(1),
+  .amenities-scroller .amenity:nth-of-type(5) {
+    background-position: center calc(100% + 20px);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(2),
+  .amenities-scroller .amenity:nth-of-type(6) {
+    background: url('../images/lobby.jpg') center/cover;
+  }
+
+  .amenities-scroller .amenity:nth-of-type(3),
+  .amenities-scroller .amenity:nth-of-type(7) {
+    background: url('../images/luxury-pool.jpg') center/cover;
+  }
+
+  .amenities-scroller .amenity:nth-of-type(4),
+  .amenities-scroller .amenity:nth-of-type(8) {
+    background: url('../images/bar.jpg') center/cover;
+  }
+
+  .room-container {
+    flex-direction: row;
+  }
+
+  .image-container .room-module {
+    width: 100%;
+    height: auto;
+  }
+
+  .room-module div {
+    width: 30%;
+    height: 200px;
+  }
+
+  .amenity {
+    aspect-ratio: 1 / 1;
+    width: auto;
+    height: 50vh;
+  }
+
+  .footer {
+    margin-top: 20px;
+    padding: 10px 70px;
+  }
+
+  .left-footer {
+    width: 50%;
+  }
+
+  .right-footer {
+    justify-content: space-evenly;
+  }
+
+  .individual-room {
+    width: 48%;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 1440px) {
+  .login-form {
+    width: 50%;
+  }
+
+  .form,
+  .logo {
+    padding: 0 80px;
+  }
+
+  .logo p {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 60px;
+  }
+
+  label {
+    font-size: 26px;
+  }
+
+  input,
+  .sign-in-button {
+    width: 500px;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder,
+  form p {
+    font-size: 16px;
+  }
+
+  .sign-in-button {
+    font-size: 24px;
+  }
+
+  nav button {
+    font-size: 16px;
+  }
+
+  nav button img {
+    width: 20px;
+    height: auto;
+  }
+
+  .nav-footer a {
+    font-size: 14px;
+  }
+
+  .portfolio-links {
+    width: 10%;
+  }
+
+  .dashboard-info h3 {
+    font-size: 28px;
+  }
+
+  .nights-container {
+    margin-bottom: 20px;
+  }
+
+  .module {
+    width: 250px;
+  }
+
+  p,
+  .content p,
+  .module p {
+    font-size: 18px;
+  }
+
+  .right-header-links .orange-button {
+    height: 40px;
+    width: 120px;
+    font-size: 14px;
+}
+
+.available-rooms {
+  padding: 0 40px 20px 40px;
+}
+
+.available-rooms-container {
+  justify-content: space-between;
+}
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 2560px) {
+  .login-form {
+    width: 50%;
+  }
+
+  .form,
+  .logo {
+    padding: 0 80px;
+  }
+
+  .form {
+    height: 50%;
+  }
+
+  .logo p {
+    font-size: 28px;
+  }
+
+  h1 {
+    font-size: 100px;
+  }
+
+  label {
+    font-size: 48px;
+  }
+
+  input,
+  .sign-in-button {
+    width: 75%;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder,
+  form p {
+    font-size: 38px;
+  }
+
+  .sign-in-button {
+    font-size: 24px;
+  }
+
+  .customer-greeting {
+    font-size: 60px;
+  }
+
+  nav button {
+    font-size: 38px;
+  }
+
+  nav button img {
+    width: 40px;
+    height: auto;
+  }
+
+  .nav-footer a {
+    font-size: 24px;
+  }
+
+  ul {
+    width: 80%;
+  }
+
+  .dropdown-options.active {
+    max-height: 400px;
+  }
+
+  .portfolio-links {
+    width: 15%;
+  }
+
+  .dashboard-info h3 {
+    font-size: 50px;
+  }
+
+  .module {
+    width: 450px;
+  }
+
+  .module-button {
+    height: 60px;
+    font-size: 24px;
+    padding: 0 20px;
+  }
+
+  p,
+  .content p,
+  .module p {
+    font-size: 38px;
+  }
 }

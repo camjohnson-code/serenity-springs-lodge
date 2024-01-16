@@ -423,10 +423,16 @@ const formatDate = (date) => {
 };
 
 const makeRoomTypeButton = (booking) => {
-  return allRooms[booking.roomNumber - 1 || booking.number - 1].roomType
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  if (booking.roomNumber)
+    return allRooms[booking.roomNumber - 1].roomType
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  else
+    return allRooms[booking.number - 1].roomType
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 };
 
 const getBookedRooms = () => {
@@ -637,10 +643,15 @@ const populateBookingsOverview = () => {
   if (sortedUpcomingBookings.length) {
     upcomingVisitsDiv.innerHTML = '';
 
-    sortedUpcomingBookings.forEach((booking) => {
+    sortedUpcomingBookings.forEach((booking, index) => {
       const date = booking.date;
       const formattedDate = formatDate(date);
-      const roomType = makeRoomTypeButton(booking);
+      const roomType = allRooms[
+        sortedUpcomingBookings[index].roomNumber - 1
+      ].roomType
+        .split(' ')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 
       const div = document.createElement('div');
       div.classList.add(
@@ -748,6 +759,7 @@ const populatePastBookings = () => {
 
   const pastBookingsDiv = document.querySelector('.past-bookings');
 
+  console.log(sortedPastBookings);
   if (sortedPastBookings.length) {
     pastBookingsDiv.innerHTML = '';
 
