@@ -89,7 +89,6 @@ label {
 
 input,
 .sign-in-button {
-  width: 400px;
   height: 60px;
 }
 
@@ -198,7 +197,7 @@ li {
   border: none;
   background: none;
   text-align: left;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .dropdown-button {
@@ -294,7 +293,7 @@ li button {
 .dashboard-info h3 {
   font-weight: 700;
   font-size: 24px;
-  margin-bottom: 15px
+  margin-bottom: 15px;
 }
 
 .content {
@@ -357,7 +356,7 @@ li button {
 }
 
 .date {
- text-shadow: 0 0 8px rgba(0, 0, 0, 1.0);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 1);
 }
 
 .link,
@@ -791,4 +790,256 @@ a {
 
 .hidden {
   display: none;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 320px) {
+  .login-image {
+    display: none;
+  }
+
+  .login-form {
+    padding-left: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    margin-bottom: 40px;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .logo p {
+    font-size: 12px;
+  }
+
+  .login-instruction {
+    margin-bottom: 20px;
+  }
+
+  .form {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  label {
+    font-size: 18px;
+  }
+
+  input, .sign-in-button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder {
+    font-size: 14px;
+  }
+
+  .sign-in-button {
+    font-size: 18px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 375px) {
+  .logo p {
+    font-size: 14px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 425px) {
+  .logo p {
+    font-size: 16px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 768px) {
+  .logo p {
+    font-size: 16px;
+  }
+
+  .form, .logo {
+    padding: 0 80px;
+  }
+
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 1024px) {
+  .login-image {
+    display: block;
+  }
+
+  .login-form {
+    width: 50%;
+  }
+
+  .form, .logo {
+    padding: 0 40px;
+  }
+
+  .logo p {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 54px;
+  }
+  
+  form p {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 24px;
+  }
+
+  input, .sign-in-button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder {
+    font-size: 16px;
+  }
+
+  .sign-in-button {
+    font-size: 22px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 1024px) {
+  .login-form {
+    width: 50%;
+  }
+
+  .form, .logo {
+    padding: 0 40px;
+  }
+
+  .logo p {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 54px;
+  }
+  
+  form p {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 24px;
+  }
+
+  input, .sign-in-button {
+    width: 100%;
+    margin-bottom: 20px;
+    height: 60px;
+  }
+
+  input,
+  input::placeholder {
+    font-size: 16px;
+  }
+
+  .sign-in-button {
+    font-size: 22px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 1440px) {
+  .login-form {
+    width: 50%;
+  }
+
+  .form, .logo {
+    padding: 0 80px;
+  }
+
+  .logo p {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 60px;
+  }
+
+  label {
+    font-size: 28px;
+  }
+
+  input, .sign-in-button {
+    width: 500px;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder, 
+  form p {
+    font-size: 18px;
+  }
+
+  .sign-in-button {
+    font-size: 24px;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: 2560px) {
+  .login-form {
+    width: 50%;
+  }
+
+  .form, .logo {
+    padding: 0 80px;
+  }
+
+  .form {
+    height: 50%;
+  }
+
+  .logo p {
+    font-size: 28px;
+  }
+
+  h1 {
+    font-size: 100px;
+  }
+
+  label {
+    font-size: 48px;
+  }
+
+  input, .sign-in-button {
+    width: 75%;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  input,
+  input::placeholder, 
+  form p {
+    font-size: 38px;
+  }
+
+  .sign-in-button {
+    font-size: 24px;
+  }
 }
