@@ -835,7 +835,8 @@ a {
     font-size: 18px;
   }
 
-  input, .sign-in-button {
+  input,
+  .sign-in-button {
     width: 100%;
     margin-bottom: 20px;
   }
@@ -847,6 +848,35 @@ a {
 
   .sign-in-button {
     font-size: 18px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .dashboard-info {
+    width: 100%;
+    padding: 20px 10px;
+  }
+
+  .module {
+    width: 150px;
+  }
+
+  .content {
+    margin: none;
+  }
+
+  .content p, 
+  .module p {
+    font-size: 14px;
+  }
+
+  .past-visits-container {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 
@@ -870,10 +900,62 @@ a {
     font-size: 16px;
   }
 
-  .form, .logo {
+  .form,
+  .logo {
     padding: 0 80px;
   }
 
+  nav {
+    display: flex;
+    width: 22%;
+  }
+
+  h2 {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  nav button {
+    font-size: 12px;
+  }
+
+  nav button img {
+    width: 15px;
+    height: auto;
+  }
+
+  .nav-footer a {
+    font-size: 12px;
+  }
+
+  .portfolio-links {
+    width: 15%;
+  }
+
+  .dashboard-info {
+    width: 80%;
+    padding: 20px 40px;
+  }
+
+  .module {
+    width: 150px;
+  }
+
+  .content {
+    margin: none;
+  }
+
+  .content p, 
+  .module p {
+    font-size: 14px;
+  }
+
+  .past-visits-container {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -886,7 +968,8 @@ a {
     width: 50%;
   }
 
-  .form, .logo {
+  .form,
+  .logo {
     padding: 0 40px;
   }
 
@@ -897,7 +980,7 @@ a {
   h1 {
     font-size: 54px;
   }
-  
+
   form p {
     font-size: 16px;
   }
@@ -906,7 +989,8 @@ a {
     font-size: 24px;
   }
 
-  input, .sign-in-button {
+  input,
+  .sign-in-button {
     width: 100%;
     margin-bottom: 20px;
   }
@@ -919,47 +1003,38 @@ a {
   .sign-in-button {
     font-size: 22px;
   }
-}
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
-@media screen and (min-width: 1024px) {
-  .login-form {
-    width: 50%;
+  nav {
+    width: 20%;
   }
 
-  .form, .logo {
-    padding: 0 40px;
-  }
-
-  .logo p {
-    font-size: 16px;
-  }
-
-  h1 {
-    font-size: 54px;
-  }
-  
-  form p {
-    font-size: 16px;
-  }
-
-  label {
+  .customer-greeting {
+    text-align: center;
+    padding: 0 10px;
     font-size: 24px;
   }
 
-  input, .sign-in-button {
-    width: 100%;
-    margin-bottom: 20px;
-    height: 60px;
+  nav button {
+    font-size: 14px;
   }
 
-  input,
-  input::placeholder {
+  nav button img {
+    width: 20px;
+    height: auto;
+  }
+
+  .portfolio-links {
+    width: 15%;
+  }
+
+  .module {
+    width: 200px;
+  }
+
+  p,
+  .content p, 
+  .module p {
     font-size: 16px;
-  }
-
-  .sign-in-button {
-    font-size: 22px;
   }
 }
 
@@ -969,7 +1044,8 @@ a {
     width: 50%;
   }
 
-  .form, .logo {
+  .form,
+  .logo {
     padding: 0 80px;
   }
 
@@ -985,19 +1061,47 @@ a {
     font-size: 28px;
   }
 
-  input, .sign-in-button {
+  input,
+  .sign-in-button {
     width: 500px;
     margin-bottom: 20px;
   }
 
   input,
-  input::placeholder, 
+  input::placeholder,
   form p {
     font-size: 18px;
   }
 
   .sign-in-button {
     font-size: 24px;
+  }
+
+  nav button {
+    font-size: 18px;
+  }
+
+  nav button img {
+    width: 20px;
+    height: auto;
+  }
+
+  .portfolio-links {
+    width: 15%;
+  }
+
+  .dashboard-info h3 {
+    font-size: 28px;
+  }
+
+  .module {
+    width: 250px;
+  }
+
+  p,
+  .content p, 
+  .module p {
+    font-size: 18px;
   }
 }
 
@@ -1007,7 +1111,8 @@ a {
     width: 50%;
   }
 
-  .form, .logo {
+  .form,
+  .logo {
     padding: 0 80px;
   }
 
@@ -1027,19 +1132,69 @@ a {
     font-size: 48px;
   }
 
-  input, .sign-in-button {
+  input,
+  .sign-in-button {
     width: 75%;
     height: 120px;
     margin-bottom: 20px;
   }
 
   input,
-  input::placeholder, 
+  input::placeholder,
   form p {
     font-size: 38px;
   }
 
   .sign-in-button {
     font-size: 24px;
+  }
+
+  .customer-greeting {
+    font-size: 60px;
+  }
+
+  nav button {
+    font-size: 38px;
+  }
+
+  nav button img {
+    width: 40px;
+    height: auto;
+  }
+
+  .nav-footer a {
+    font-size: 24px;
+  }
+
+  ul {
+    width: 80%;
+  }
+
+  .dropdown-options.active {
+    max-height: 400px;
+}
+
+  .portfolio-links {
+    width: 15%;
+  }
+
+  .dashboard-info h3 {
+    font-size: 50px;
+  }
+
+  .module {
+    width: 450px;
+  }
+
+  .module-button {
+    height: 60px;
+    font-size: 24px;
+    padding: 0 20px;
+  }
+
+  p,
+  .content p, 
+  .module p {
+    font-size: 38px;
   }
 }
