@@ -501,8 +501,6 @@ a {
   background-color: var(--orange);
   border: none;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
   rotate: 90deg;
 }
 
@@ -1014,8 +1012,6 @@ a {
   .orange-button {
     font-size: 12px;
   }
-
-  
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1092,6 +1088,16 @@ a {
     align-items: center;
   }
 
+  .home .dashboard-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.past-visits-container, .upcoming-visits-container {
+  justify-content: flex-start;
+}
+
   .home .spending {
     align-items: flex-start;
   }
@@ -1116,6 +1122,84 @@ a {
     align-items: center;
     flex-wrap: wrap;
   }
+
+  .room-finder {
+    width: 55%;
+    height: 80px;
+    flex-direction: row;
+    padding: 10px 20px;
+  }
+
+  .room-finder div {
+    padding-top: 0;
+  }
+
+  .room-finder div:nth-of-type(2) {
+    border-left: 0.5px solid white;
+  }
+
+  .room-finder button {
+    padding: 10px;
+  }
+
+  .image-container > .room-module {
+    height: 200px;
+    width: 100%;
+    margin-left: 0;
+}
+
+  .amenities-scroller .amenity:nth-of-type(1) {
+    background-position: center calc(100% + 220px);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(2) {
+    background-position: center calc(100% + 170px);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(3) {
+    background-position: center calc(100%);
+  }
+
+  .amenities-scroller .amenity:nth-of-type(4) {
+    background-position: center calc(100% + 170px);
+  }
+
+  .left-footer {
+    width: 25%;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .left-footer div:first-of-type {
+    display: block;
+  }
+
+  .footer {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+
+  .right-footer,
+  .left-footer {
+    height: 75%;
+  }
+
+  .available-rooms {
+    padding: 20px;
+  }
+
+  .available-rooms-header {
+    padding: 0;
+  }
+
+  .available-rooms h4 {
+    font-size: 18px;
+  }
+
+  room-image button, .room-info p, .orange-button {
+    font-size: 14px;
+}
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
