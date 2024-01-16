@@ -1123,6 +1123,24 @@ a {
     flex-wrap: wrap;
   }
 
+  .header {
+    display: flex;
+  }
+
+  .left-header-links h4 {
+    font-size: 16px;
+  }
+
+  .left-header-links li {
+    font-size: 12px;
+  }
+
+  .right-header-links .orange-button {
+    height:  25px;
+    width: 80px;
+    font-size: 12px;
+  }
+
   .room-finder {
     width: 55%;
     height: 80px;
