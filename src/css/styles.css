@@ -589,10 +589,10 @@ a {
 
 @keyframes scroll {
   from {
-    transform: translateX(25%);
+    transform: translateX(0);
   }
   to {
-    transform: translateX(-25%);
+    transform: translateX(-129%);
   }
 }
 
@@ -1298,6 +1298,7 @@ a {
 
   .welcome-section {
     background-position: center calc(100% + 190px);
+    height: 350px;
   }
 
   .welcome-section h5 {
@@ -1361,21 +1362,11 @@ a {
     }
   }
 
-  @keyframes scroll {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(-143.25%);
-    }
-  }
-
   .amenity:nth-of-type(5),
   .amenity:nth-of-type(6),
   .amenity:nth-of-type(7),
   .amenity:nth-of-type(8) {
     display: flex;
-    background-position: center calc(100% + 20px);
   }
 
   .amenities-scroller .amenity:nth-of-type(1),
@@ -1413,7 +1404,9 @@ a {
   }
 
   .amenity {
-    height: 310px;
+    aspect-ratio: 1 / 1;
+    width: auto;
+    height: 50vh;
   }
 
   .footer {
@@ -1507,6 +1500,20 @@ a {
   .module p {
     font-size: 18px;
   }
+
+  .right-header-links .orange-button {
+    height: 40px;
+    width: 120px;
+    font-size: 14px;
+}
+
+.available-rooms {
+  padding: 0 40px 20px 40px;
+}
+
+.available-rooms-container {
+  justify-content: space-between;
+}
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
