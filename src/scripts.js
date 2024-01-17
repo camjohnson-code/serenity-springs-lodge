@@ -22,6 +22,7 @@ import './images/In-White-96.png';
 import './images/arrow.png';
 import './images/single.jpg';
 import './images/welcome-section.jpg';
+import './images/menu.png';
 
 // Global Variables
 const errorModule = document.querySelector('.error-module');
