@@ -1,5 +1,11 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
+const {
+  sortBookingsOldToNew,
+  sortBookingsNewToOld,
+  convertNumToDollarAmount,
+  formatDate,
+} = require('./functions');
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
@@ -51,7 +57,7 @@ const availableRoomsContainer = document.querySelector(
   '.available-rooms-container'
 );
 const footer = document.querySelector('.footer');
-const today = new Date();
+let today = new Date();
 let currentUser;
 let allRooms;
 let allBookings;
@@ -131,7 +137,7 @@ const getUser = (url) => {
     .then(() => getAllRooms('http://localhost:3001/api/v1/rooms'))
     .then(() => getAllBookings('http://localhost:3001/api/v1/bookings'))
     .then(() => {
-      getUserBookings();
+      getUserBookings(allBookings, currentUser);
       updateUpcomingVisits();
       populateSpendingAmount();
       updatePastVisits();
@@ -188,35 +194,12 @@ const bookRoom = (url) => {
 };
 
 // Functions
-const getUserBookings = () => {
-  userBookings = allBookings.filter(
-    (booking) => booking.userID === currentUser.id
-  );
+const hide = (element) => {
+  element.classList.add('hidden');
 };
 
-const updateUpcomingVisits = () => {
-  const upcomingBookings = getUpcomingBookings(userBookings);
-  const sortedBookings = sortBookingsOldToNew([...upcomingBookings]);
-
-  populateNextVisit(sortedBookings);
-};
-
-const updateSpending = () => {
-  const amount = userBookings.reduce(
-    (acc, booking) => acc + allRooms[booking.roomNumber - 1].costPerNight,
-    0
-  );
-
-  const formattedAmount = convertNumToDollarAmount(amount);
-  return formattedAmount;
-};
-
-const updatePastVisits = () => {
-  const pastBookings = getPastBookings(userBookings);
-  const sortedNewPastBookings = sortBookingsNewToOld([...pastBookings]);
-  const sortedOldPastBookings = sortBookingsOldToNew([...pastBookings]);
-
-  populateRecentVisits(pastBookings);
+const show = (element) => {
+  element.classList.remove('hidden');
 };
 
 const changeDashboardView = (event) => {
@@ -370,69 +353,29 @@ const changeDashboardView = (event) => {
   }
 };
 
-const sortBookingsOldToNew = (bookings) => {
-  return bookings.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
+const updateUpcomingVisits = () => {
+  const upcomingBookings = getUpcomingBookings(userBookings);
+  const sortedBookings = sortBookingsOldToNew([...upcomingBookings]);
 
-    return dateA - dateB;
-  });
+  populateNextVisit(sortedBookings);
 };
 
-const sortBookingsNewToOld = (bookings) => {
-  return bookings.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
+const updateSpending = () => {
+  const amount = userBookings.reduce(
+    (acc, booking) => acc + allRooms[booking.roomNumber - 1].costPerNight,
+    0
+  );
 
-    return dateB - dateA;
-  });
+  const formattedAmount = convertNumToDollarAmount(amount);
+  return formattedAmount;
 };
 
-const getUpcomingBookings = (bookings) => {
-  return bookings.filter((booking) => {
-    const bookingDate = new Date(booking.date);
-    return bookingDate >= today;
-  });
-};
+const updatePastVisits = () => {
+  const pastBookings = getPastBookings(userBookings);
+  const sortedNewPastBookings = sortBookingsNewToOld([...pastBookings]);
+  const sortedOldPastBookings = sortBookingsOldToNew([...pastBookings]);
 
-const getPastBookings = (bookings) => {
-  return bookings.filter((booking) => {
-    const bookingDate = new Date(booking.date);
-    return bookingDate < today;
-  });
-};
-
-const convertNumToDollarAmount = (num) => {
-  return num.toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
-};
-
-const formatDate = (date) => {
-  let dateInputs;
-  if (date.split('/').map(Number).length === 3)
-    dateInputs = date.split('/').map(Number);
-  else dateInputs = date.split('-').map(Number);
-
-  const [year, month, day] = dateInputs;
-  const dateObject = new Date(year, month - 1, day);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-
-  return dateObject.toLocaleDateString('en-US', options);
-};
-
-const makeRoomTypeButton = (booking) => {
-  if (booking.roomNumber)
-    return allRooms[booking.roomNumber - 1].roomType
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  else
-    return allRooms[booking.number - 1].roomType
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+  populateRecentVisits(pastBookings);
 };
 
 const getBookedRooms = () => {
@@ -482,12 +425,39 @@ const assignBookedRoom = () => {
   );
 };
 
-const hide = (element) => {
-  element.classList.add('hidden');
+const getUserBookings = (bookings, user) => {
+  userBookings = bookings.filter((booking) => booking.userID === user.id);
 };
 
-const show = (element) => {
-  element.classList.remove('hidden');
+const getUpcomingBookings = (bookings) => {
+  return bookings.filter((booking) => {
+    const bookingDate = new Date(booking.date);
+    return bookingDate >= today;
+  });
+};
+
+const getPastBookings = (bookings) => {
+  return bookings.filter((booking) => {
+    const bookingDate = new Date(booking.date);
+    return bookingDate < today;
+  });
+};
+
+const makeRoomTypeButton = (booking) => {
+  if (booking.roomNumber)
+    return allRooms[booking.roomNumber - 1].roomType
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  else
+    return allRooms[booking.number - 1].roomType
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+};
+
+const formatDateInput = () => {
+  checkInDateInput.min = new Date().toISOString().split('T')[0];
 };
 
 // DOM Manipulation Functions
@@ -759,7 +729,6 @@ const populatePastBookings = () => {
 
   const pastBookingsDiv = document.querySelector('.past-bookings');
 
-  console.log(sortedPastBookings);
   if (sortedPastBookings.length) {
     pastBookingsDiv.innerHTML = '';
 
@@ -914,8 +883,4 @@ const showLoginErrorMessage = (submittedID, submittedPassword) => {
     password.classList.add('sign-in-error');
     password.insertAdjacentElement('afterend', errorText);
   }
-};
-
-const formatDateInput = () => {
-  checkInDateInput.min = new Date().toISOString().split('T')[0];
 };
