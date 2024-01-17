@@ -133,7 +133,7 @@ const fetchData = (url) => {
 const getUser = (url) => {
   return fetchData(url)
     .then((user) => {
-      if (!response.ok) {
+      if (!user) {
         show(errorModule);
         throw new Error(error);
       }
@@ -158,7 +158,7 @@ const getUser = (url) => {
 const getAllRooms = (url) => {
   return fetchData(url)
     .then((rooms) => {
-      if (!response.ok) {
+      if (!rooms) {
         show(errorModule);
         throw new Error(error);
       }
@@ -173,7 +173,7 @@ const getAllRooms = (url) => {
 const getAllBookings = (url) => {
   return fetchData(url)
     .then((bookings) => {
-      if (!response.ok) {
+      if (!bookings) {
         show(errorModule);
         throw new Error(error);
       }
@@ -204,7 +204,7 @@ const bookRoom = (url) => {
         show(errorModule);
         throw new Error(error);
       }
-      
+
       return response;
     })
     .catch((error) => {
@@ -403,8 +403,6 @@ const getBookedRooms = () => {
     .split('-')
     .join('/');
 
-  console.log('all rooms', allRooms);
-  console.log('all bookings', allBookings);
   return allBookings
     .filter((booking) => booking.date === checkInDate)
     .map((room) => room.roomNumber);
