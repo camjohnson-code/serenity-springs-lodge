@@ -1,6 +1,10 @@
 // Functions
 const sortBookingsOldToNew = (bookings) => {
-  return bookings.sort((a, b) => {
+  const filteredBookings = bookings.filter(
+    (booking) => booking.date !== 'invalid date'
+  );
+
+  return filteredBookings.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
 
@@ -9,7 +13,11 @@ const sortBookingsOldToNew = (bookings) => {
 };
 
 const sortBookingsNewToOld = (bookings) => {
-  return bookings.sort((a, b) => {
+  const filteredBookings = bookings.filter(
+    (booking) => booking.date !== 'invalid date'
+  );
+
+  return filteredBookings.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
 
@@ -18,10 +26,12 @@ const sortBookingsNewToOld = (bookings) => {
 };
 
 const convertNumToDollarAmount = (num) => {
-  return num.toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+  if (typeof num !== 'number') return 'Invalid Amount';
+  else
+    return num.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
 };
 
 const formatDate = (date) => {
