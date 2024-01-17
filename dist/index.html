@@ -8,8 +8,23 @@
   </head>
   <body>
     <section class="error-module hidden">
-      <p class="error-message">Oops! Something went wrong. Please refresh the page and try again.</p>
-      <p class="error-message">If your problems persist, you may call the front desk at +1 (123) 456-7890.</p>
+      <p class="error-message">
+        Oops! Something went wrong. Please refresh the page and try again.
+      </p>
+      <p class="error-message">
+        If your problems persist, you may call the front desk at +1 (123)
+        456-7890.
+      </p>
+    </section>
+    <img src="./images/menu.png" alt="Menu button" class="menu-button hidden" />
+    <section class="mobile-menu-section hidden">
+      <div class="mobile-menu">
+        <button class="nav-button" aria-label="Home">Home</button>
+        <button class="nav-button" aria-label="Upcoming">Upcoming</button>
+        <button class="nav-button" aria-label="Past">Past</button>
+        <button class="nav-button" aria-label="Spending">Spending</button>
+        <button class="nav-button" aria-label="Book A Room">Book A Room</button>
+      </div>
     </section>
     <section class="login-page">
       <aside class="login-image">
@@ -47,26 +62,30 @@
           <p class="login-instruction">
             Enter your username and password to login to our dashboard.
           </p>
-          <label for="username">Username</label>
+          <label for="username" aria-label="Username">Username</label>
           <input
             type="text"
             placeholder="Enter your username"
             id="username"
             required
+            aria-labelledby="username"
           />
-          <label for="password">Password</label>
+          <label for="password" aria-label="Password">Password</label>
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Enter your password"
             required
+            aria-labelledby="password"
           />
           <label for="sign-in"></label>
-          <button class="sign-in-button">Sign In</button>
+          <button aria-label="Sign In" class="sign-in-button">Sign In</button>
           <p>
             Forgot Username or Password?
-            <span class="forgot-link">Click Here</span>
+            <span class="forgot-link" aria-label="Forgot Password Link"
+              >Click Here</span
+            >
           </p>
         </form>
       </section>
@@ -74,36 +93,70 @@
     <section class="customer-dashboard hidden">
       <nav class="customer-nav">
         <h2 class="customer-greeting"></h2>
-        <button class="nav-button active">
-          <img src="./images/home.svg" alt="Home button icon" />
+        <button class="nav-button active" aria-label="Home" role="button">
+          <img
+            src="./images/home.svg"
+            alt="Home button icon"
+            aria-hidden="true"
+          />
           Home
         </button>
-        <button class="nav-button">
-          <img src="./images/hotel.png" alt="Bookings button icon" />
+        <button class="nav-button" aria-label="Bookings" role="button">
+          <img
+            src="./images/hotel.png"
+            alt="Bookings button icon"
+            aria-hidden="true"
+          />
           Bookings
           <img
             src="./images/arrow.png"
             alt="Toggle arrow"
             class="toggle-arrow"
+            aria-hidden="true"
           />
         </button>
         <ul class="dropdown-options">
           <li class="nav-button">
-            <button class="nav-button dropdown-button">Overview</button>
+            <button
+              class="nav-button dropdown-button"
+              aria-label="Overview"
+              role="button"
+            >
+              Overview
+            </button>
           </li>
           <li class="nav-button">
-            <button class="nav-button dropdown-button">Upcoming</button>
+            <button
+              class="nav-button dropdown-button"
+              aria-label="Upcoming"
+              role="button"
+            >
+              Upcoming
+            </button>
           </li>
           <li class="nav-button">
-            <button class="nav-button dropdown-button">Past</button>
+            <button
+              class="nav-button dropdown-button"
+              aria-label="Past"
+              role="button"
+            >
+              Past
+            </button>
           </li>
         </ul>
-        <button class="nav-button">
-          <img src="./images/spending.png" alt="Spending button icon" />Spending
+        <button class="nav-button" aria-label="Spending" role="button">
+          <img
+            src="./images/spending.png"
+            alt="Spending button icon"
+            aria-hidden="true"
+          />Spending
         </button>
-        <button class="nav-button">
-          <img src="./images/calendar.png" alt="Book a room button icon" />Book
-          A Room
+        <button class="nav-button" aria-label="Book A Room" role="button">
+          <img
+            src="./images/calendar.png"
+            alt="Book a room button icon"
+            aria-hidden="true"
+          />Book A Room
         </button>
         <section class="nav-footer">
           <a href="#" class="nav-footer-links">Serenity Springs Lodge</a>
@@ -111,20 +164,30 @@
           <a href="#" class="nav-footer-links">Contact Support</a>
           <a href="#" class="nav-footer-links">User Guide</a>
           <div class="portfolio-links">
-            <a href="https://github.com/camjohnson-code/" target="_blank"
-              ><img
+            <a
+              href="https://github.com/camjohnson-code/"
+              target="_blank"
+              aria-label="GitHub Profile"
+              rel="noopener noreferrer"
+            >
+              <img
                 src="./images/github-mark-white.png"
                 alt="Link to my GitHub profile"
                 class="portfolio-link"
-            /></a>
+              />
+            </a>
             <a
               href="https://www.linkedin.com/in/camjohnson-code/"
               target="_blank"
-              ><img
+              aria-label="LinkedIn Profile"
+              rel="noopener noreferrer"
+            >
+              <img
                 src="./images/In-White-96.png"
                 alt="Link to my LinkedIn profile"
                 class="portfolio-link"
-            /></a>
+              />
+            </a>
           </div>
         </section>
       </nav>
@@ -188,7 +251,7 @@
       </div>
       <form action="" class="room-finder">
         <div>
-          <label for="check-in">Check-in Date</label>
+          <label for="check-in" aria-label="Check-in Date">Check-in Date</label>
           <input
             placeholder="Select check-in date"
             type="text"
@@ -196,10 +259,11 @@
             name="check-in"
             id="check-in"
             required
+            aria-labelledby="check-in"
           />
         </div>
         <div>
-          <label for="guests">Guests</label>
+          <label for="guests" aria-label="Number of Guests">Guests</label>
           <input
             type="number"
             name="guests"
@@ -208,20 +272,34 @@
             min="1"
             max="8"
             required
+            aria-labelledby="guests"
           />
         </div>
-        <button type="submit" class="room-search-button">
-          <img src="./images/arrow.png" alt="Submit" class="submit-arrow" />
+        <button aria-label="Submit" type="submit" class="room-search-button">
+          <img
+            src="./images/arrow.png"
+            alt="Submit"
+            class="submit-arrow"
+            aria-hidden="true"
+          />
         </button>
       </form>
       <section class="popular-rooms" id="popular-rooms">
         <p>Popular Rooms</p>
         <div class="room-container">
-          <div class="room-module"><button>Residential Suite</button></div>
-          <div class="room-module"><button>Suite</button></div>
+          <div class="room-module">
+            <button aria-label="Residential Suite">Residential Suite</button>
+          </div>
+          <div class="room-module">
+            <button aria-label="Suite">Suite</button>
+          </div>
           <div class="image-container">
-            <div class="room-module"><button>Single</button></div>
-            <div class="room-module"><button>Junior Suite</button></div>
+            <div class="room-module">
+              <button aria-label="Single">Single</button>
+            </div>
+            <div class="room-module">
+              <button aria-label="Junior Suite">Junior Suite</button>
+            </div>
           </div>
         </div>
       </section>
@@ -229,14 +307,22 @@
         <p>Our Amenities</p>
         <div class="amenities-container">
           <div class="amenities-scroller">
-            <div class="amenity"><button>Breakfast</button></div>
-            <div class="amenity"><button>Lobby</button></div>
-            <div class="amenity"><button>Luxury Pools</button></div>
-            <div class="amenity"><button>Bar</button></div>
-            <div class="amenity"><button>Breakfast</button></div>
-            <div class="amenity"><button>Lobby</button></div>
-            <div class="amenity"><button>Luxury Pools</button></div>
-            <div class="amenity"><button>Bar</button></div>
+            <div class="amenity">
+              <button aria-label="Breakfast">Breakfast</button>
+            </div>
+            <div class="amenity"><button aria-label="Lobby">Lobby</button></div>
+            <div class="amenity">
+              <button aria-label="Luxury Pools">Luxury Pools</button>
+            </div>
+            <div class="amenity"><button aria-label="Bar">Bar</button></div>
+            <div class="amenity">
+              <button aria-label="Breakfast">Breakfast</button>
+            </div>
+            <div class="amenity"><button aria-label="Lobby">Lobby</button></div>
+            <div class="amenity">
+              <button aria-label="Luxury Pools">Luxury Pools</button>
+            </div>
+            <div class="amenity"><button aria-label="Bar">Bar</button></div>
           </div>
         </div>
       </section>

@@ -22,8 +22,12 @@ import './images/In-White-96.png';
 import './images/arrow.png';
 import './images/single.jpg';
 import './images/welcome-section.jpg';
+import './images/menu.png';
 
 // Global Variables
+const mobileMenuButton = document.querySelector('.menu-button');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuSection = document.querySelector('.mobile-menu-section');
 const errorModule = document.querySelector('.error-module');
 const loginPage = document.querySelector('.login-page');
 const loginForm = document.querySelector('.form');
@@ -68,6 +72,10 @@ let confirmButton;
 let bookedRoom;
 
 // Event Listeners
+document.addEventListener('click', function (event) {
+  toggleMobileMenu(event);
+})
+
 loginForm.addEventListener('submit', function (event) {
   if (event.target === loginForm) {
     const customerID = username.value.split('customer')[1];
@@ -225,6 +233,9 @@ const changeDashboardView = (event) => {
   if (event.target === loginForm) {
     hide(loginPage);
     show(customerDashboard);
+    show(mobileMenu);
+    show(mobileMenuButton);
+    show(mobileMenuSection);
   }
 
   if (event.target.innerText === 'Home') {
@@ -478,6 +489,83 @@ const formatDateInput = () => {
 };
 
 // DOM Manipulation Functions
+const toggleMobileMenu = (event) => {
+  if (event.target.classList.contains('menu-button')) {
+    mobileMenu.classList.toggle("active");
+    mobileMenuSection.classList.toggle("active");
+  }
+
+  if (event.target.innerText === 'Home') {
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
+    navButtons.forEach((button) => button.classList.remove('active'));
+    navButtons[0].classList.add('active');
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[0]);
+    });
+    getUser(`http://localhost:3001/api/v1/customers/${currentUser.id}`);
+    mobileMenu.classList.toggle("active");
+    mobileMenuSection.classList.toggle("active");
+  }
+
+  if (
+    event.target.innerText === 'Spending' ||
+    event.target.classList.contains('spending-link')
+  ) {
+    populateSpendingDashboard(userBookings);
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[1]);
+      navButtons.forEach((button) => button.classList.remove('active'));
+      navButtons[8].classList.add('active');
+      mobileMenu.classList.toggle("active");
+      mobileMenuSection.classList.toggle("active");
+    });
+  }
+
+  if (event.target.innerText === 'Upcoming') {
+    populateUpcomingBookings();
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[3]);
+      mobileMenu.classList.toggle("active");
+      mobileMenuSection.classList.toggle("active");
+    });
+  }
+
+  if (event.target.innerText === 'Past') {
+    populatePastBookings();
+    dashboardSections.forEach((section) => {
+      hide(section);
+      show(dashboardSections[4]);
+      mobileMenu.classList.toggle("active");
+      mobileMenuSection.classList.toggle("active");
+    });
+  }
+
+  if (
+    event.target.innerText === 'Book A Room' ||
+    event.target.classList.contains('booking-link')
+  ) {
+    hide(customerDashboard);
+    show(bookRoomDashboard);
+    hide(availableRoomsSection);
+    show(footer);
+    show(welcomeBanner);
+    show(searchForm);
+    show(popularRoomsSection);
+    show(amenitiesSection);
+    footer.classList.remove('footer-no-rooms');
+    checkInDateInput.value = '';
+    checkInDateInput.type = 'text';
+    numGuestsInput.value = '';
+    mobileMenu.classList.toggle("active");
+    mobileMenuSection.classList.toggle("active");
+  }
+}
+
 const toggleDropdownMenu = (event) => {
   if (
     (event.target === navButtons[1] ||
