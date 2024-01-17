@@ -24,6 +24,7 @@ import './images/single.jpg';
 import './images/welcome-section.jpg';
 
 // Global Variables
+const errorModule = document.querySelector('.error-module');
 const loginPage = document.querySelector('.login-page');
 const loginForm = document.querySelector('.form');
 const username = document.getElementById('username');
@@ -119,18 +120,24 @@ const fetchData = (url) => {
   return fetch(url)
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`Oops! Something went wrong. Please try again.`);
+        show(errorModule);
+        throw new Error(error);
       }
       return response.json();
     })
     .catch((error) => {
-      alert(error);
+      show(errorModule);
     });
 };
 
 const getUser = (url) => {
   return fetchData(url)
     .then((user) => {
+      if (!response.ok) {
+        show(errorModule);
+        throw new Error(error);
+      }
+
       currentUser = user;
       populateName(currentUser);
     })
@@ -144,27 +151,37 @@ const getUser = (url) => {
       formatDateInput();
     })
     .catch((error) => {
-      alert(`Oops! Something went wrong. Please try again.`);
+      show(errorModule);
     });
 };
 
 const getAllRooms = (url) => {
   return fetchData(url)
     .then((rooms) => {
+      if (!response.ok) {
+        show(errorModule);
+        throw new Error(error);
+      }
+
       allRooms = rooms.rooms;
     })
     .catch((error) => {
-      alert(`Oops! Something went wrong. Please try again.`);
+      show(errorModule);
     });
 };
 
 const getAllBookings = (url) => {
   return fetchData(url)
     .then((bookings) => {
+      if (!response.ok) {
+        show(errorModule);
+        throw new Error(error);
+      }
+
       allBookings = bookings.bookings;
     })
     .catch((error) => {
-      alert(`Oops! Something went wrong. Please try again.`);
+      show(errorModule);
     });
 };
 
@@ -184,12 +201,14 @@ const bookRoom = (url) => {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`Failed to book room. Please try again.`);
+        show(errorModule);
+        throw new Error(error);
       }
+      
       return response;
     })
     .catch((error) => {
-      alert(error);
+      show(errorModule);
     });
 };
 
