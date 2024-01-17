@@ -24,6 +24,7 @@ import './images/single.jpg';
 import './images/welcome-section.jpg';
 
 // Global Variables
+const errorModule = document.querySelector('.error-module');
 const loginPage = document.querySelector('.login-page');
 const loginForm = document.querySelector('.form');
 const username = document.getElementById('username');
@@ -116,12 +117,27 @@ bookingsUpcomingSection.addEventListener('click', function (event) {
 
 // API Calls
 const fetchData = (url) => {
-  return fetch(url).then((respone) => respone.json());
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        show(errorModule);
+        throw new Error(error);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      show(errorModule);
+    });
 };
 
 const getUser = (url) => {
   return fetchData(url)
     .then((user) => {
+      if (!user) {
+        show(errorModule);
+        throw new Error(error);
+      }
+
       currentUser = user;
       populateName(currentUser);
     })
@@ -133,19 +149,40 @@ const getUser = (url) => {
       populateSpendingAmount();
       updatePastVisits();
       formatDateInput();
+    })
+    .catch((error) => {
+      show(errorModule);
     });
 };
 
 const getAllRooms = (url) => {
-  return fetchData(url).then((rooms) => {
-    allRooms = rooms.rooms;
-  });
+  return fetchData(url)
+    .then((rooms) => {
+      if (!rooms) {
+        show(errorModule);
+        throw new Error(error);
+      }
+
+      allRooms = rooms.rooms;
+    })
+    .catch((error) => {
+      show(errorModule);
+    });
 };
 
 const getAllBookings = (url) => {
-  return fetchData(url).then((bookings) => {
-    allBookings = bookings.bookings;
-  });
+  return fetchData(url)
+    .then((bookings) => {
+      if (!bookings) {
+        show(errorModule);
+        throw new Error(error);
+      }
+
+      allBookings = bookings.bookings;
+    })
+    .catch((error) => {
+      show(errorModule);
+    });
 };
 
 const bookRoom = (url) => {
@@ -161,7 +198,18 @@ const bookRoom = (url) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-  });
+  })
+    .then((response) => {
+      if (!response.ok) {
+        show(errorModule);
+        throw new Error(error);
+      }
+
+      return response;
+    })
+    .catch((error) => {
+      show(errorModule);
+    });
 };
 
 // Functions
