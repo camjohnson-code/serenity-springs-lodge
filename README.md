@@ -65,7 +65,7 @@ Use the provided login credentials for customers and managers to experience diff
 
 ## Demo
 
-![Demo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3R4a2s2cW04ZGMzYTljb2g4N2RhMTdjajQ0azd0YjVsZnAyM3hhbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iRkPKOnTFQH2T5auSS/source.gif)
+![Demo](https://media.giphy.com/media/iRkPKOnTFQH2T5auSS/giphy-downsized.gif)
 
 
 
