@@ -123,6 +123,18 @@ body {
   margin-bottom: 50px;
 }
 
+.log-out-div {
+  border-top: 1px solid white;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+.log-out-div button {
+  margin-top: 10px;
+  width: 100%;
+}
+
 nav button,
 .nav-footer a {
   color: white;

@@ -23,6 +23,7 @@ import './images/arrow.png';
 import './images/single.jpg';
 import './images/welcome-section.jpg';
 import './images/menu.png';
+import './images/sign-out.png';
 
 // Global Variables
 const mobileMenuButton = document.querySelector('.menu-button');
@@ -39,6 +40,7 @@ const navButtons = document.querySelectorAll('.nav-button');
 const dropdownButtons = document.querySelectorAll('.dropdown-button');
 const dropdownOptions = document.querySelector('.dropdown-options');
 const toggleArrow = document.querySelector('.toggle-arrow');
+const logOutButton = document.querySelector('.log-out');
 const customerDashboard = document.querySelector('.customer-dashboard');
 const dashboardSections = document.querySelectorAll('.dashboard-info');
 const bookingsOverviewSection = document.querySelector('.bookings-overview');
@@ -298,6 +300,10 @@ const changeDashboardView = (event) => {
     checkInDateInput.value = '';
     checkInDateInput.type = 'text';
     numGuestsInput.value = '';
+  }
+
+  if (event.target === logOutButton || event.target.classList.contains('log-out')) {
+    location.reload();
   }
 
   if (
