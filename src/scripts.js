@@ -302,7 +302,10 @@ const changeDashboardView = (event) => {
     numGuestsInput.value = '';
   }
 
-  if (event.target === logOutButton || event.target.classList.contains('log-out')) {
+  if (
+    event.target === logOutButton ||
+    event.target.classList.contains('log-out')
+  ) {
     location.reload();
   }
 
@@ -357,7 +360,11 @@ const changeDashboardView = (event) => {
     }
   }
 
-  if (event.target.innerText === 'New Search') {
+  if (
+    event.target.innerText === 'New Search' ||
+    event.target.innerText === 'Rooms' ||
+    event.target.innerText === 'Amenities'
+  ) {
     checkInDateInput.value = '';
     checkInDateInput.type = 'text';
     numGuestsInput.value = '';
@@ -501,7 +508,7 @@ const showMobileMenu = () => {
     show(mobileMenuButton);
     show(mobileMenuSection);
   }
-}
+};
 
 const toggleMobileMenu = (event) => {
   if (event.target.classList.contains('menu-button')) {
