@@ -536,6 +536,9 @@ const toggleMobileMenu = (event) => {
     event.target.classList.contains('spending-link')
   ) {
     populateSpendingDashboard(userBookings);
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[1]);
@@ -548,6 +551,9 @@ const toggleMobileMenu = (event) => {
 
   if (event.target.innerText === 'Upcoming') {
     populateUpcomingBookings();
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[3]);
@@ -558,6 +564,9 @@ const toggleMobileMenu = (event) => {
 
   if (event.target.innerText === 'Past') {
     populatePastBookings();
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[4]);
