@@ -536,6 +536,9 @@ const toggleMobileMenu = (event) => {
     event.target.classList.contains('spending-link')
   ) {
     populateSpendingDashboard(userBookings);
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[1]);
@@ -548,6 +551,9 @@ const toggleMobileMenu = (event) => {
 
   if (event.target.innerText === 'Upcoming') {
     populateUpcomingBookings();
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[3]);
@@ -558,6 +564,9 @@ const toggleMobileMenu = (event) => {
 
   if (event.target.innerText === 'Past') {
     populatePastBookings();
+    hide(footer);
+    hide(bookRoomDashboard);
+    show(customerDashboard);
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[4]);
@@ -589,8 +598,8 @@ const toggleMobileMenu = (event) => {
 
 const toggleDropdownMenu = (event) => {
   if (
-    (event.target === navButtons[1] ||
-      event.target.closest('button') === navButtons[1]) &&
+    (event.target === navButtons[7] ||
+      event.target.closest('button') === navButtons[7]) &&
     !event.target.classList.contains('dropdown-button')
   ) {
     dropdownOptions.classList.toggle('active');

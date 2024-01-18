@@ -875,11 +875,6 @@ a {
     display: none;
   }
 
-  .login-page.hidden + .menu-button,
-  .login-page.hidden + .mobile-menu-section {
-    display: block;
-  }
-
   .login-form {
     padding-left: 0px;
     width: 100%;
