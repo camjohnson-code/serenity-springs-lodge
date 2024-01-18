@@ -482,7 +482,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 50px;
+  padding: 0 5vw;
   margin-bottom: 30px;
 }
 
@@ -674,14 +674,6 @@ a {
 .amenities-container {
   display: flex;
   justify-content: center;
-  -webkit-mask: linear-gradient(
-    90deg,
-    transparent,
-    white 20%,
-    white 80%,
-    transparent
-  );
-  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
 }
 
 .amenities-scroller:hover {
@@ -693,7 +685,7 @@ a {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-129%);
+    transform: translateX(-163%);
   }
 }
 
@@ -863,6 +855,14 @@ a {
 
 .room-info button {
   margin-top: 40px;
+}
+
+.max-width-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hidden {
@@ -1327,9 +1327,10 @@ a {
     display: block;
   }
 
-  .footer {
+  .footer,
+  .header {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     padding: 10px 20px;
   }
 
@@ -1438,9 +1439,20 @@ a {
     width: 200px;
   }
 
+  .left-header-links li {
+    font-size: 14px;
+  }
+
   .welcome-section {
     background-position: center calc(100% + 190px);
     height: 350px;
+  }
+
+  .welcome-section,
+  .popular-rooms,
+  .amenities,
+  .max-width-container {
+    max-width: 1282.5px;
   }
 
   .welcome-section h5 {
@@ -1487,6 +1499,18 @@ a {
     }
   }
 
+  .amenities-container {
+    -webkit-mask: linear-gradient(
+      90deg,
+      transparent,
+      white 20%,
+      white 80%,
+      transparent
+    );
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  }
+  
+
   .amenity:nth-of-type(5),
   .amenity:nth-of-type(6),
   .amenity:nth-of-type(7),
@@ -1531,7 +1555,7 @@ a {
   .amenity {
     aspect-ratio: 1 / 1;
     width: auto;
-    height: 50vh;
+    height: 350px;
   }
 
   .footer {
@@ -1630,6 +1654,19 @@ a {
     height: 40px;
     width: 120px;
     font-size: 14px;
+  }
+
+  .welcome-section {
+    height: 400px;
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-115.4%);
+    }
   }
 
   .available-rooms {
