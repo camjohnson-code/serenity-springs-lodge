@@ -73,14 +73,6 @@ let bookedRoom;
 let isSignedIn = false;
 
 // Event Listeners
-document.addEventListener('pageload', function (event) {
-  if (isSignedIn) {
-    show(mobileMenu);
-    show(mobileMenuButton);
-    show(mobileMenuSection);
-  }
-});
-
 document.addEventListener('click', function (event) {
   toggleMobileMenu(event);
 });
@@ -162,6 +154,7 @@ const getUser = (url) => {
     .then(() => getAllBookings('http://localhost:3001/api/v1/bookings'))
     .then(() => {
       isSignedIn = true;
+      showMobileMenu();
       getUserBookings(allBookings, currentUser);
       updateUpcomingVisits();
       populateSpendingAmount();
@@ -496,6 +489,14 @@ const formatDateInput = () => {
 };
 
 // DOM Manipulation Functions
+const showMobileMenu = () => {
+  if (isSignedIn && window.innerWidth <= 768) {
+    show(mobileMenu);
+    show(mobileMenuButton);
+    show(mobileMenuSection);
+  }
+}
+
 const toggleMobileMenu = (event) => {
   if (event.target.classList.contains('menu-button')) {
     mobileMenu.classList.toggle('active');
