@@ -40,6 +40,7 @@ const navButtons = document.querySelectorAll('.nav-button');
 const dropdownButtons = document.querySelectorAll('.dropdown-button');
 const dropdownOptions = document.querySelector('.dropdown-options');
 const toggleArrow = document.querySelector('.toggle-arrow');
+const logOutButton = document.querySelector('.log-out');
 const customerDashboard = document.querySelector('.customer-dashboard');
 const dashboardSections = document.querySelectorAll('.dashboard-info');
 const bookingsOverviewSection = document.querySelector('.bookings-overview');
@@ -299,6 +300,10 @@ const changeDashboardView = (event) => {
     checkInDateInput.value = '';
     checkInDateInput.type = 'text';
     numGuestsInput.value = '';
+  }
+
+  if (event.target === logOutButton || event.target.classList.contains('log-out')) {
+    location.reload();
   }
 
   if (

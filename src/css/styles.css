@@ -123,14 +123,14 @@ body {
   margin-bottom: 50px;
 }
 
-.log-out {
+.log-out-div {
   border-top: 1px solid white;
   width: 80%;
   display: flex;
   justify-content: center;
 }
 
-.log-out button {
+.log-out-div button {
   margin-top: 10px;
   width: 100%;
 }
