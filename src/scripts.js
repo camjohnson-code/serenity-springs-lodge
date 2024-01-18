@@ -598,8 +598,8 @@ const toggleMobileMenu = (event) => {
 
 const toggleDropdownMenu = (event) => {
   if (
-    (event.target === navButtons[1] ||
-      event.target.closest('button') === navButtons[1]) &&
+    (event.target === navButtons[7] ||
+      event.target.closest('button') === navButtons[7]) &&
     !event.target.classList.contains('dropdown-button')
   ) {
     dropdownOptions.classList.toggle('active');
