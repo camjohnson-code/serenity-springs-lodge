@@ -70,11 +70,20 @@ let userBookings;
 let goBackLink;
 let confirmButton;
 let bookedRoom;
+let isSignedIn = false;
 
 // Event Listeners
+document.addEventListener('pageload', function (event) {
+  if (isSignedIn) {
+    show(mobileMenu);
+    show(mobileMenuButton);
+    show(mobileMenuSection);
+  }
+});
+
 document.addEventListener('click', function (event) {
   toggleMobileMenu(event);
-})
+});
 
 loginForm.addEventListener('submit', function (event) {
   if (event.target === loginForm) {
@@ -152,6 +161,7 @@ const getUser = (url) => {
     .then(() => getAllRooms('http://localhost:3001/api/v1/rooms'))
     .then(() => getAllBookings('http://localhost:3001/api/v1/bookings'))
     .then(() => {
+      isSignedIn = true;
       getUserBookings(allBookings, currentUser);
       updateUpcomingVisits();
       populateSpendingAmount();
@@ -233,9 +243,6 @@ const changeDashboardView = (event) => {
   if (event.target === loginForm) {
     hide(loginPage);
     show(customerDashboard);
-    show(mobileMenu);
-    show(mobileMenuButton);
-    show(mobileMenuSection);
   }
 
   if (event.target.innerText === 'Home') {
@@ -491,8 +498,8 @@ const formatDateInput = () => {
 // DOM Manipulation Functions
 const toggleMobileMenu = (event) => {
   if (event.target.classList.contains('menu-button')) {
-    mobileMenu.classList.toggle("active");
-    mobileMenuSection.classList.toggle("active");
+    mobileMenu.classList.toggle('active');
+    mobileMenuSection.classList.toggle('active');
   }
 
   if (event.target.innerText === 'Home') {
@@ -506,8 +513,8 @@ const toggleMobileMenu = (event) => {
       show(dashboardSections[0]);
     });
     getUser(`http://localhost:3001/api/v1/customers/${currentUser.id}`);
-    mobileMenu.classList.toggle("active");
-    mobileMenuSection.classList.toggle("active");
+    mobileMenu.classList.toggle('active');
+    mobileMenuSection.classList.toggle('active');
   }
 
   if (
@@ -520,8 +527,8 @@ const toggleMobileMenu = (event) => {
       show(dashboardSections[1]);
       navButtons.forEach((button) => button.classList.remove('active'));
       navButtons[8].classList.add('active');
-      mobileMenu.classList.toggle("active");
-      mobileMenuSection.classList.toggle("active");
+      mobileMenu.classList.toggle('active');
+      mobileMenuSection.classList.toggle('active');
     });
   }
 
@@ -530,8 +537,8 @@ const toggleMobileMenu = (event) => {
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[3]);
-      mobileMenu.classList.toggle("active");
-      mobileMenuSection.classList.toggle("active");
+      mobileMenu.classList.toggle('active');
+      mobileMenuSection.classList.toggle('active');
     });
   }
 
@@ -540,8 +547,8 @@ const toggleMobileMenu = (event) => {
     dashboardSections.forEach((section) => {
       hide(section);
       show(dashboardSections[4]);
-      mobileMenu.classList.toggle("active");
-      mobileMenuSection.classList.toggle("active");
+      mobileMenu.classList.toggle('active');
+      mobileMenuSection.classList.toggle('active');
     });
   }
 
@@ -561,10 +568,10 @@ const toggleMobileMenu = (event) => {
     checkInDateInput.value = '';
     checkInDateInput.type = 'text';
     numGuestsInput.value = '';
-    mobileMenu.classList.toggle("active");
-    mobileMenuSection.classList.toggle("active");
+    mobileMenu.classList.toggle('active');
+    mobileMenuSection.classList.toggle('active');
   }
-}
+};
 
 const toggleDropdownMenu = (event) => {
   if (

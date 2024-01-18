@@ -859,6 +859,11 @@ a {
     display: none;
   }
 
+  .mobile-menu-section, 
+  .menu-button {
+    display: block;
+  }
+
   .login-form {
     padding-left: 0px;
     width: 100%;
@@ -1118,7 +1123,7 @@ a {
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 @media screen and (min-width: 768px) {
-  .mobile-menu-button {
+  .menu-button {
     display: none;
   }
 
