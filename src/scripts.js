@@ -23,6 +23,7 @@ import './images/arrow.png';
 import './images/single.jpg';
 import './images/welcome-section.jpg';
 import './images/menu.png';
+import './images/sign-out.png';
 
 // Global Variables
 const mobileMenuButton = document.querySelector('.menu-button');
