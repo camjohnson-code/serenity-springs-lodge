@@ -11,6 +11,14 @@ One of the hardest challenges I faced was trying to finish this project plus all
 - Self teaching and adding CSS animations. 
 - Building a robust testing suite that tests pure functions, along with happy and sad paths.
 
+## Try it for yourself!
+You can visit the site live by clicking [here](https://camjohnson-code.github.io/serenity-springs-lodge/).
+
+To log in as a customer, use the following credentials:
+   ```bash
+   username: customer[number] (where "[number]" is a number between 1 and 50)
+   password: overlook2021
+   ```
 
 ## Install Instructions
 
@@ -55,7 +63,7 @@ One of the hardest challenges I faced was trying to finish this project plus all
 Use the provided login credentials for customers and managers to experience different roles within the application.
    - To log in as a customer, use the following credentials:
    ```bash
-   username: customer[number] (where [number] is a number between 1 and 50)
+   username: customer[number] (where "[number]" is a number between 1 and 50)
    password: overlook2021
    ```
 
@@ -71,10 +79,10 @@ Use the provided login credentials for customers and managers to experience diff
 
 ## Future Features
 
-I plan to enhance the tool further with the following features:
+In the future, I'd like to enhance the tool further with the following features:
 
 - Adding a manager dashboard
-- Adding a log out button that returns users to the log in screen
+- Refactoring code for efficiency and easier readability
 
 
 ## Tech Stack
