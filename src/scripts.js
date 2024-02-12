@@ -93,9 +93,9 @@ loginForm.addEventListener('submit', function (event) {
       showLoginErrorMessage(customerID, enteredPassword);
     } else {
       event.preventDefault();
-      getUser(`http://localhost:3001/api/v1/customers/${customerID}`).then(() =>
-        changeDashboardView(event)
-      );
+      getUser(
+        `https://peaceful-anchorage-36801-d8ce29adb0a7.herokuapp.com/api/v1/customers/${customerID}`
+      ).then(() => changeDashboardView(event));
     }
   }
 });
@@ -152,8 +152,16 @@ const getUser = (url) => {
       currentUser = user;
       populateName(currentUser);
     })
-    .then(() => getAllRooms('http://localhost:3001/api/v1/rooms'))
-    .then(() => getAllBookings('http://localhost:3001/api/v1/bookings'))
+    .then(() =>
+      getAllRooms(
+        'https://peaceful-anchorage-36801-d8ce29adb0a7.herokuapp.com/api/v1/rooms'
+      )
+    )
+    .then(() =>
+      getAllBookings(
+        'https://peaceful-anchorage-36801-d8ce29adb0a7.herokuapp.com/api/v1/bookings'
+      )
+    )
     .then(() => {
       isSignedIn = true;
       showMobileMenu();
@@ -322,7 +330,9 @@ const changeDashboardView = (event) => {
       hide(section);
       show(dashboardSections[0]);
     });
-    getUser(`http://localhost:3001/api/v1/customers/${currentUser.id}`);
+    getUser(
+      `https://peaceful-anchorage-36801-d8ce29adb0a7.herokuapp.com/api/v1/customers/${currentUser.id}`
+    );
   }
 
   if (
@@ -391,8 +401,12 @@ const changeDashboardView = (event) => {
   ) {
     assignBookedRoom();
     showConfirmedBooking(event);
-    bookRoom('http://localhost:3001/api/v1/bookings');
-    getUser(`http://localhost:3001/api/v1/customers/${currentUser.id}`);
+    bookRoom(
+      'https://peaceful-anchorage-36801-d8ce29adb0a7.herokuapp.com/api/v1/bookings'
+    );
+    getUser(
+      `https://peaceful-anchorage-36801-d8ce29adb0a7.herokuapp.com/api/v1/customers/${currentUser.id}`
+    );
   }
 };
 
@@ -526,7 +540,9 @@ const toggleMobileMenu = (event) => {
       hide(section);
       show(dashboardSections[0]);
     });
-    getUser(`http://localhost:3001/api/v1/customers/${currentUser.id}`);
+    getUser(
+      `https://peaceful-anchorage-36801-d8ce29adb0a7.herokuapp.com/api/v1/customers/${currentUser.id}`
+    );
     mobileMenu.classList.toggle('active');
     mobileMenuSection.classList.toggle('active');
   }
